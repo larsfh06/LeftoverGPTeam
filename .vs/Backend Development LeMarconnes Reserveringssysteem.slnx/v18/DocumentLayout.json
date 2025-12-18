@@ -1,0 +1,139 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\controllers\\gebruikercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\controllers\\gebruikercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\repositories\\gebruikerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\repositories\\gebruikerrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\controllers\\feedbackcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\repositories\\feedbackrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\repositories\\feedbackrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\repositories\\campingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\repositories\\campingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\repositories\\boekingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\repositories\\boekingrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|c:\\users\\1nst4\\documents\\github\\leftovergpteam\\backend development lemarconnes reserveringssysteem\\controllers\\boekingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{98D346F6-C60D-4308-BA1E-C89D58A4F696}|Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj|solutionrelative:backend development lemarconnes reserveringssysteem\\controllers\\boekingcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "GebruikerRepository.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\GebruikerRepository.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\GebruikerRepository.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\GebruikerRepository.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\GebruikerRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:04:01.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GebruikerController.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\GebruikerController.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\GebruikerController.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\GebruikerController.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\GebruikerController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:03:59.786Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FeedbackController.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\FeedbackController.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\FeedbackController.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\FeedbackController.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\FeedbackController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:03:41.533Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FeedbackRepository.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\FeedbackRepository.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\FeedbackRepository.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\FeedbackRepository.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\FeedbackRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:03:18.525Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "CampingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\CampingRepository.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\CampingRepository.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\CampingRepository.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\CampingRepository.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAABHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:03:13.862Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "BoekingRepository.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\BoekingRepository.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\BoekingRepository.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Repositories\\BoekingRepository.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Repositories\\BoekingRepository.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABkAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:02:01.448Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "BoekingController.cs",
+              "DocumentMoniker": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\BoekingController.cs",
+              "RelativeDocumentMoniker": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\BoekingController.cs",
+              "ToolTip": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Controllers\\BoekingController.cs",
+              "RelativeToolTip": "Backend Development LeMarconnes Reserveringssysteem\\Controllers\\BoekingController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-18T15:01:57.197Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
