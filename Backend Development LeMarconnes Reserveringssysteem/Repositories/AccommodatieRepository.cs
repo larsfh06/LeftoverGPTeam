@@ -20,9 +20,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var command = new SqlCommand(
                 "SELECT * FROM Accommodatie a " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
-                "JOIN Boeking b ON a.BoekingID = b.BoekingID " + 
                 "WHERE @id = 0 OR a.AccommodatieID = @id " +
-                "OR (@id = 0 AND (@campingID = 0 OR CampingID = @campingID) AND (@boekingID = 0 OR BoekingID = @boekingID))", connection);
+                "OR (@id = 0 AND (@campingID = 0 OR CampingID = @campingID))" + 
+                "SELECT * FROM Boeking WHERE BoekingID = @boekingid OR @boekingID = 0 " +
+                "ORDER BY Datum DESC", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@campingID", CampingID);
             command.Parameters.AddWithValue("@boekingID", BoekingID);
@@ -51,7 +52,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 }
                 if (IncludeBoeking)
                 {
-                    accommodatie.Boeking = new Boeking
+                    var boeking = new Boeking
                     {
                         BoekingID = (int)reader["BoekingID"],
                         GebruikerID = (int)reader["GebruikerID"],
@@ -65,6 +66,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Opmerking = reader["Opmerking"] as string,
                         Cancelled = reader["Cancelled"] as bool?
                     };
+                    accommodatie.Boeking.Add(boeking);
                 }
                 result.Add(accommodatie);
             }

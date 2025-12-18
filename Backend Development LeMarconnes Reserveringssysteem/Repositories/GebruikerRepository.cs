@@ -18,8 +18,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var command = new SqlCommand(
                 "SELECT * FROM Gebruiker WHERE GebruikerID = @id " +
                 "OR (@id = 0 AND (@naam = 'ALL' OR Naam = @naam) " +
-                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon) " + 
-                "SELECHT * FROM Boeking WHERE BoekingID = @boekingID)", connection);
+                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon)) " + 
+                "SELECHT * FROM Boeking WHERE BoekingID = @boekingID OR @boekingID = 0", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@naam", naam);
             command.Parameters.AddWithValue("@telefoon", telefoon);

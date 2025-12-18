@@ -21,7 +21,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "JOIN Acommodatie a ON b.AccommodatieID = a.AccommodatieID " +
                 "WHERE BoekingID = @id " +
                 "OR (@id = 0 AND (@gebruikerID = 0 OR GebruikerID = @gebruikerID) AND (@accommodatieID = 0 OR AccommodatieID = @accommodatieID)) " +
-                "SELECT * FROM Betaling WHERE BoekingID = @id " +
+                "SELECT * FROM Betaling WHERE BoekingID = @id OR @id = 0 " +
                 "ORDER BY DatumOrigine DESC", connection);
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
             command.Parameters.AddWithValue("@accomodatieID", AccommodatieID);
