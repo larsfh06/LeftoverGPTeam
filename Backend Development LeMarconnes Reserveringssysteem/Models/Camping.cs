@@ -6,4 +6,5 @@
     public decimal? Breedte { get; set; }
     public decimal? Stroom { get; set; }
     public bool? Huisdieren { get; set; }
+    public ICollection<Accommodatie>? Accommodatie { get; set; }
 }

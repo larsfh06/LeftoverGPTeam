@@ -17,15 +17,16 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Betaling WHERE BetalingID = @id " +
-                "OR (@id = 0 AND (@status = 'ALL' OR Status = @status)) ", connection);
+                "OR (@id = 0 AND (@status = 'ALL' OR Status = @status) AND (@boekingID = 0 OR BoekingID = @boekingID)) ", connection);
             command.Parameters.AddWithValue("@status", Status);
             command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@boekingID", BoekingID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                result.Add(new Betaling
+                var betaling = new Betaling
                 {
                     BetalingID = (int)reader["BetalingID"],
                     BoekingID = (int)reader["BoekingID"],
@@ -36,7 +37,27 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Korting = reader["Korting"] as decimal?,
                     DatumOrigine = reader["DatumOrigine"] as DateTime?,
                     DatumBetaald = reader["DatumBetaald"] as DateTime?
-                });
+                };
+                if (IncludeBoeking)
+                {
+                    betaling.Boeking = new Boeking
+                    {
+                        BoekingID = (int)reader["BoekingID"],
+                        GebruikerID = reader["GebruikerID"] as string,
+                        Datum = reader["Datum"] as DateTime?,
+                        AccommodatieID = reader["AccommodatieID"] as int,
+                        CheckInDatum = reader["CheckInDatum"] as DateTime?,
+                        CheckOutDatum = reader["CheckOutDatum"] as DateTime?,
+                        AantalVolwassenen = reader["AantalVolwassenen"] as int,
+                        AantalJongeKinderen = reader["AantalJongeKinderen"] as int,
+                        AantalOudereKinderen = reader["AantalOudereKinderen"] as int,
+                        Opmerking = reader["Opmerking"] as string,
+                        Cancelled = reader["Cancelled"] as int
+                    };
+
+                }
+                result.Add(betaling);
+
             }
             return result;
         }

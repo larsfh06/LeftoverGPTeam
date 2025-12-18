@@ -11,23 +11,25 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon, bool IncludeBoekingen)
+        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon,int BoekingID, bool IncludeBoekingen)
         {
             var result = new List<Gebruiker>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Gebruiker WHERE GebruikerID = @id " +
                 "OR (@id = 0 AND (@naam = 'ALL' OR Naam = @naam) " +
-                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon))", connection);
+                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon) " + 
+                "SELECHT * FROM Boeking WHERE BoekingID = @boekingID)", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@naam", naam);
             command.Parameters.AddWithValue("@telefoon", telefoon);
+            command.Parameters.AddWithValue("@boekingID", BoekingID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                result.Add(new Gebruiker
+                var gebruiker = new Gebruiker
                 {
                     GebruikerID = (int)reader["GebruikerID"],
                     Naam = (string)reader["Naam"],
@@ -36,7 +38,26 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Salt = (string)reader["Salt"],
                     Telefoon = reader["Telefoon"] as string,
                     Taal = reader["Taal"] as string
-                });
+                };
+                if (IncludeBoekingen)
+                {
+                    var boeking = new Boeking
+                    {
+                        BoekingID = (int)reader["BoekingID"],
+                        GebruikerID = (int)reader["GebruikerID"],
+                        Datum = reader["Datum"] as DateTime?,
+                        AccommodatieID = (int)reader["AccommodatieID"],
+                        CheckInDatum = (DateTime)reader["CheckInDatum"],
+                        CheckOutDatum = (DateTime)reader["CheckOutDatum"],
+                        AantalVolwassenen = reader["AantalVolwassenen"] as byte?,
+                        AantalJongeKinderen = reader["AantalJongeKinderen"] as byte?,
+                        AantalOudereKinderen = reader["AantalOudereKinderen"] as byte?,
+                        Opmerking = reader["Opmerking"] as string,
+                        Cancelled = reader["Cancelled"] as bool?
+                    };
+                    gebruiker.Boekingen.Add(boeking);
+                }
+                result.Add(gebruiker);
             }
             return result;
         }

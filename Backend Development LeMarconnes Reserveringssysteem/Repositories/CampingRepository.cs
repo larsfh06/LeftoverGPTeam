@@ -11,22 +11,25 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Camping> GetCampings(int id, decimal stroom, bool huisdieren)
+        public List<Camping> GetCampings(int id, decimal stroom, bool huisdieren, int AccommodatieID, bool IncludeAccommodatie)
         {
             var result = new List<Camping>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Campings WHERE CampingID = @id " +
-                "OR (@id = 0 AND Stroom >= @stroom AND Huisdieren = @huisdieren)", connection);
+                "SELECT * FROM Campings c " + 
+                "JOIN Accommodatie a ON a.CampingID = @id " + 
+                "WHERE CampingID = @id " +
+                "OR (@id = 0 AND (@stroom = 0 OR Stroom >= @stroom) AND (@huisdieren = false OR Huisdieren = @huisdieren) AND (@accomodatieID = 0 OR AccommodatieID = @accommodatieID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@stroom", stroom);
             command.Parameters.AddWithValue("@huisdieren", huisdieren);
+            command.Parameters.AddWithValue("@accommodateiID", AccommodatieID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                result.Add(new Camping
+                var camping = new Camping
                 {
                     CampingID = (int)reader["CampingID"],
                     Regels = reader["Regels"] as string,
@@ -34,7 +37,16 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Breedte = reader["Breedte"] as decimal?,
                     Stroom = reader["Stroom"] as decimal?,
                     Huisdieren = reader["Huisdieren"] as bool?
-                });
+                };
+                if (IncludeAccommodatie)
+                {
+                    camping.Accommodatie = new Accommodatie
+                    {
+                        AccommodatieID = (int)reader["AccommodatieID"],
+                        CampingID = reader["CampingID"] as int
+                    };
+                }
+                result.Add(camping);
             }
             return result;
         }

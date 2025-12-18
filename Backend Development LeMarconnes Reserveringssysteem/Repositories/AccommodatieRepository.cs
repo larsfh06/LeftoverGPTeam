@@ -13,15 +13,19 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
         // ------------------ Read ------------------
 
-        public List<Accommodatie> GetAccommodaties(int id, bool IncludeCamping)
+        public List<Accommodatie> GetAccommodaties(int id, bool IncludeCamping, int CampingID, bool IncludeBoeking, int BoekingID)
         {
             var result = new List<Accommodatie>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Accommodatie a " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
-                "WHERE @id = 0 OR a.AccommodatieID = @id ", connection);
+                "JOIN Boeking b ON a.BoekingID = b.BoekingID " + 
+                "WHERE @id = 0 OR a.AccommodatieID = @id " +
+                "OR (@id = 0 AND (@campingID = 0 OR CampingID = @campingID) AND (@boekingID = 0 OR BoekingID = @boekingID))", connection);
             command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@campingID", CampingID);
+            command.Parameters.AddWithValue("@boekingID", BoekingID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
@@ -45,6 +49,24 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Huisdieren = reader["Huisdieren"] as bool?
                     };
                 }
+                if (IncludeBoeking)
+                {
+                    accommodatie.Boeking = new Boeking
+                    {
+                        BoekingID = (int)reader["BoekingID"],
+                        GebruikerID = (int)reader["GebruikerID"],
+                        Datum = reader["Datum"] as DateTime?,
+                        AccommodatieID = (int)reader["AccommodatieID"],
+                        CheckInDatum = (DateTime)reader["CheckInDatum"],
+                        CheckOutDatum = (DateTime)reader["CheckOutDatum"],
+                        AantalVolwassenen = reader["AantalVolwassenen"] as byte?,
+                        AantalJongeKinderen = reader["AantalJongeKinderen"] as byte?,
+                        AantalOudereKinderen = reader["AantalOudereKinderen"] as byte?,
+                        Opmerking = reader["Opmerking"] as string,
+                        Cancelled = reader["Cancelled"] as bool?
+                    };
+                }
+                result.Add(accommodatie);
             }
             return result;
         }

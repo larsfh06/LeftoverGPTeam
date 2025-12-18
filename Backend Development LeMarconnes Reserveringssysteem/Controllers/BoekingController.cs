@@ -11,10 +11,10 @@ public class BoekingController : ControllerBase
         _dal = dal;
     }
 
-    [HttpGet("{id}/{GebruikerID}")]
-    public IActionResult GetFiltered(int id = 0, int GebruikerID = 0, bool IncludeBetalingen = false, bool IncludeGebruiker = false, bool IncludeAccommodatie = false)
+    [HttpGet("{id}/{GebruikerID}/{AccommodatieID}")]
+    public IActionResult GetFiltered(int id = 0, int GebruikerID = 0, int AccommodatieID = 0, int BetalingID = 0, bool IncludeGebruiker = false, bool IncludeAccommodatie = false, bool IncludeBetalingen = false)
     {
-        var res = _dal.Boekingen.GetFiltered(id, GebruikerID, IncludeBetalingen, IncludeGebruiker, IncludeAccommodatie);
+        var res = _dal.Boekingen.GetFiltered(id, GebruikerID, AccommodatieID, BetalingID,  IncludeBetalingen, IncludeGebruiker, IncludeAccommodatie);
         if (res == null) return NotFound();
         return Ok(res);
     }

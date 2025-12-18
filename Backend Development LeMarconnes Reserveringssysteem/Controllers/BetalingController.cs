@@ -11,10 +11,10 @@ public class BetalingController : ControllerBase
         _dal = dal;
     }
 
-    [HttpGet("{id}/{Status}")]
-    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL", bool IncludeBoeking = false)
+    [HttpGet("{id}/{Status}/{BoekingID}")]
+    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL",int BoekingID = 0, bool IncludeBoeking = false)
     {
-        var betaling = _dal.Betalingen.GetBetalingen(id, Status, IncludeBoeking);
+        var betaling = _dal.Betalingen.GetBetalingen(id, Status, BoekingID, IncludeBoeking);
         if (betaling == null) return NotFound();
         return Ok(betaling);
     }

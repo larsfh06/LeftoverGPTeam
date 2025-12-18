@@ -12,9 +12,9 @@ public class AccommodatieController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public IActionResult GetAccommodaties(int id = 0, bool IncludeCamping = false)
+    public IActionResult GetAccommodaties(int id = 0,  int CampingID = 0, int BoekingID = 0, bool IncludeCamping = false, bool IncludeBoeking = false)
     {
-        var acc = _dal.Accommodaties.GetAccommodaties(id, IncludeCamping);
+        var acc = _dal.Accommodaties.GetAccommodaties(id, CampingID, BoekingID, IncludeCamping, IncludeBoeking);
         if (acc == null) return NotFound();
         return Ok(acc);
     }

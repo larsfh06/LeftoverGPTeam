@@ -12,9 +12,9 @@ public class CampingController : ControllerBase
     }
 
     [HttpGet("{id}/{stroom}/{huisdieren}")]
-    public IActionResult GetCampings(int id = 0, int stroom = 0, bool huisdieren = false)
+    public IActionResult GetCampings(int id = 0, int stroom = 0, bool huisdieren = false, int AccommodatieID = 0,  bool IncludeAccommodatie = false)
     {
-        var camping = _dal.Campings.GetCampings(id, stroom, huisdieren);
+        var camping = _dal.Campings.GetCampings(id, stroom, huisdieren, AccommodatieID, IncludeAccommodatie);
         if (camping == null) return NotFound();
         return Ok(camping);
     }
