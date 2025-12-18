@@ -40,16 +40,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Camping camping)
+        public bool Create(Camping camping)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Camping (Regels, Lengte, Breedte, Stroom, Huisdieren)
-                VALUES (@regels, @lengte, @breedte, @stroom, @huisdieren)
-                SELECT SCOPE_IDENTITY();
-                ";
+                VALUES (@regels, @lengte, @breedte, @stroom, @huisdieren)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -59,7 +57,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@stroom", camping.Stroom);
             cmd.Parameters.AddWithValue("@huisdieren", camping.Huisdieren);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Camping camping)
         {

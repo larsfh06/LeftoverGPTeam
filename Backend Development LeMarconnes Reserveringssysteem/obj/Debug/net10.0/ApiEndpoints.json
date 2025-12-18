@@ -27,6 +27,11 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "IncludeCamping",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -122,6 +127,11 @@
         "Name": "Status",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "IncludeBoeking",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -180,6 +190,21 @@
         "Name": "GebruikerID",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "IncludeBetalingen",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeGebruiker",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeAccommodatie",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -465,6 +490,16 @@
         "Name": "gebruikerID",
         "Type": "System.Int32",
         "IsRequired": true
+      },
+      {
+        "Name": "IncludeGebruiker",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeBoeking",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -528,6 +563,11 @@
         "Name": "telefoon",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "IncludeBoekingen",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

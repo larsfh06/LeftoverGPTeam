@@ -11,7 +11,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon)
+        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon, bool IncludeBoekingen)
         {
             var result = new List<Gebruiker>();
             using var connection = new SqlConnection(_connectionString);
@@ -42,15 +42,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Gebruiker gebruiker)
+        public bool Create(Gebruiker gebruiker)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Gebruiker (Naam, Emailadres, HashedWachtwoord, Salt, Telefoon, Taal)
-                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Taal)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Taal)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -61,7 +60,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Telefoon", gebruiker.Telefoon);
             cmd.Parameters.AddWithValue("@Taal", gebruiker.Taal);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Gebruiker gebruiker)
         {

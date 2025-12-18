@@ -37,15 +37,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Faciliteit faciliteit)
+        public bool Create(Faciliteit faciliteit)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Faciliteit (FaciliteitNaam, Omschrijving, Capaciteit, Openingstijd, Sluitingstijd)
-                VALUES (@FaciliteitNaam, @Omschrijving, @Capaciteit, @Openingstijd, @Sluitingstijd)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@FaciliteitNaam, @Omschrijving, @Capaciteit, @Openingstijd, @Sluitingstijd)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -55,7 +54,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Openingstijd", faciliteit.Openingstijd);
             cmd.Parameters.AddWithValue("@Sluitingsstijd", faciliteit.Sluitingstijd);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Faciliteit faciliteit)
         {

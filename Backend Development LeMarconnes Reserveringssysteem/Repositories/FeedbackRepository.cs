@@ -12,7 +12,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Feedback> GetFeedback(int id, int gebruikerID)
+        public List<Feedback> GetFeedback(int id, int gebruikerID, bool IncludeGebruiker, bool IncludeBoeking)
         {
             var result = new List<Feedback>();
             using var connection = new SqlConnection(_connectionString);
@@ -40,15 +40,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Feedback feedback)
+        public bool Create(Feedback feedback)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Feedback (GebruikerID, BoekingID, FeedbackScore, FeedbackTekst, FeedbackDatum)
-                VALUES (@GebruikerID, @BoekingID, @FeedbackScore, @stroom, @FeedbackDatum)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@GebruikerID, @BoekingID, @FeedbackScore, @stroom, @FeedbackDatum)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -58,7 +57,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@FeedbackTekst", feedback.FeedbackTekst);
             cmd.Parameters.AddWithValue("@FeedbackDatum", feedback.FeedbackDatum);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Feedback feedback)
         {

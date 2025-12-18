@@ -20,6 +20,14 @@
               "format": "int32",
               "default": 0
             }
+          },
+          {
+            "name": "IncludeCamping",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -145,6 +153,14 @@
               "type": "string",
               "default": "ALL"
             }
+          },
+          {
+            "name": "IncludeBoeking",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -251,6 +267,30 @@
               "type": "integer",
               "format": "int32",
               "default": 0
+            }
+          },
+          {
+            "name": "IncludeBetalingen",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "IncludeGebruiker",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "IncludeAccommodatie",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
             }
           }
         ],
@@ -727,6 +767,22 @@
               "format": "int32",
               "default": 0
             }
+          },
+          {
+            "name": "IncludeGebruiker",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "IncludeBoeking",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "responses": {
@@ -862,6 +918,14 @@
             "schema": {
               "type": "string",
               "default": "ALL"
+            }
+          },
+          {
+            "name": "IncludeBoekingen",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
             }
           }
         ],
@@ -1112,6 +1176,9 @@
             "type": "string",
             "format": "date-time",
             "nullable": true
+          },
+          "boeking": {
+            "$ref": "#/components/schemas/Boeking"
           }
         },
         "additionalProperties": false
@@ -1165,6 +1232,19 @@
           },
           "cancelled": {
             "type": "boolean",
+            "nullable": true
+          },
+          "gebruiker": {
+            "$ref": "#/components/schemas/Gebruiker"
+          },
+          "accommodatie": {
+            "$ref": "#/components/schemas/Accommodatie"
+          },
+          "betalingen": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Betaling"
+            },
             "nullable": true
           }
         },
@@ -1296,6 +1376,12 @@
           "feedbackDatum": {
             "type": "string",
             "format": "date-time"
+          },
+          "gebruiker": {
+            "$ref": "#/components/schemas/Gebruiker"
+          },
+          "boeking": {
+            "$ref": "#/components/schemas/Boeking"
           }
         },
         "additionalProperties": false
@@ -1333,6 +1419,13 @@
           },
           "taal": {
             "type": "string",
+            "nullable": true
+          },
+          "boekingen": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Boeking"
+            },
             "nullable": true
           }
         },

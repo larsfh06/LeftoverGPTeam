@@ -11,7 +11,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Boeking> GetFiltered(int id, int GebruikerID)
+        public List<Boeking> GetFiltered(int id, int GebruikerID, bool IncludeBetalingen, bool IncludeGebruiker, bool IncludeAccommodatie)
         {
             var result = new List<Boeking>();
             using var connection = new SqlConnection(_connectionString);
@@ -43,15 +43,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             return result;
         }
         // ------------------ Write ------------------
-        public int Create(Boeking boeking)
+        public bool Create(Boeking boeking)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Boeking (GebruikerID, Datum, AccommodatieID, CheckInDatum, CheckOutDatum, AantalVolwassenen, AantalJongeKinderen, AantalOudereKinderen, Opmerking, Cancelled)
-                VALUES (@GebruikerID, @Datum, @AccommodatieID, @CheckInDatum, @CheckOutDatum, @AantalVolwassenen, @AantalJongeKinderen, @AantalOudereKinderen, @Opmerking, @Cancelled)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@GebruikerID, @Datum, @AccommodatieID, @CheckInDatum, @CheckOutDatum, @AantalVolwassenen, @AantalJongeKinderen, @AantalOudereKinderen, @Opmerking, @Cancelled)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -66,7 +65,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Opmerking", boeking.Opmerking);
             cmd.Parameters.AddWithValue("@Cancelled", boeking.Cancelled);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Boeking boeking)
         {

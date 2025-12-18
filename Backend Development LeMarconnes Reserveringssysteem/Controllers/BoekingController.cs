@@ -12,9 +12,9 @@ public class BoekingController : ControllerBase
     }
 
     [HttpGet("{id}/{GebruikerID}")]
-    public IActionResult GetFiltered(int id = 0, int GebruikerID = 0)
+    public IActionResult GetFiltered(int id = 0, int GebruikerID = 0, bool IncludeBetalingen = false, bool IncludeGebruiker = false, bool IncludeAccommodatie = false)
     {
-        var res = _dal.Boekingen.GetFiltered(id, GebruikerID);
+        var res = _dal.Boekingen.GetFiltered(id, GebruikerID, IncludeBetalingen, IncludeGebruiker, IncludeAccommodatie);
         if (res == null) return NotFound();
         return Ok(res);
     }

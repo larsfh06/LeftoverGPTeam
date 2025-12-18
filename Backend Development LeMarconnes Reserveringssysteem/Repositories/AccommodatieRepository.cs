@@ -13,7 +13,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
         // ------------------ Read ------------------
 
-        public List<Accommodatie> GetAccommodaties(int id)
+        public List<Accommodatie> GetAccommodaties(int id, bool IncludeCamping)
         {
             var result = new List<Accommodatie>();
             using var connection = new SqlConnection(_connectionString);
@@ -27,12 +27,15 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                result.Add(new Accommodatie
+                var accommodatie = new Accommodatie
                 {
                     AccommodatieID = (int)reader["AccommodatieID"],
-                    CampingID = (int)reader["CampingID"],
+                    CampingID = (int)reader["CampingID"]
+                };
 
-                    Camping = new Camping
+                if (IncludeCamping)
+                {
+                    accommodatie.Camping = new Camping
                     {
                         CampingID = (int)reader["CampingID"],
                         Regels = reader["Regels"] as string,
@@ -40,27 +43,26 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Breedte = reader["Breedte"] as decimal?,
                         Stroom = reader["Stroom"] as decimal?,
                         Huisdieren = reader["Huisdieren"] as bool?
-                    }
-                });
+                    };
+                }
             }
             return result;
         }
         // ------------------ Write ------------------
-        public int Create(Accommodatie accommodatie)
+        public bool Create(Accommodatie accommodatie)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Accommodatie (CampingID)
-                VALUES (@CampingID)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@CampingID)";
 
             using var cmd = new SqlCommand(sql, conn);
 
             cmd.Parameters.AddWithValue("@CampingID", accommodatie.CampingID);;
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Accommodatie accommodatie)
         {

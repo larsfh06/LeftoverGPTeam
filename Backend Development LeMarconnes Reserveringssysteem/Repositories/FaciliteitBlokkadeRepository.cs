@@ -42,15 +42,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(FaciliteitBlokkade faciliteitBlokkade)
+        public bool Create(FaciliteitBlokkade faciliteitBlokkade)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO FaciliteitBlokkade (FaciliteitID, BlokkadeType, BeginDatum, EindDatum, BlokkadeReden, Status)
-                VALUES (@FaciliteitID, @BlokkadeType, @BeginDatum, @EindDatum, @BlokkadeReden, @Status)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@FaciliteitID, @BlokkadeType, @BeginDatum, @EindDatum, @BlokkadeReden, @Status)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -61,7 +60,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@BlokkadeReden", faciliteitBlokkade.BlokkadeReden);
             cmd.Parameters.AddWithValue("@Status", faciliteitBlokkade.Status);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(FaciliteitBlokkade faciliteitBlokkade)
         {

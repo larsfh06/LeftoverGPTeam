@@ -41,15 +41,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Medewerker medewerker)
+        public bool Create(Medewerker medewerker)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Medewerker (Naam, Emailadres, HashedWachtwoord, Salt, Telefoon, Taal, Accounttype)
-                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Taal, @Accounttype)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Taal, @Accounttype)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -61,7 +60,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Taal", medewerker.Taal);
             cmd.Parameters.AddWithValue("@Accounttype", medewerker.Accounttype);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Medewerker medewerker)
         {

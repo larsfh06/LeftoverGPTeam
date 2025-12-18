@@ -11,7 +11,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Betaling> GetBetalingen(int id, string Status)
+        public List<Betaling> GetBetalingen(int id, string Status, bool IncludeBoeking)
         {
             var result = new List<Betaling>();
             using var connection = new SqlConnection(_connectionString);
@@ -42,15 +42,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Write ------------------
-        public int Create(Betaling betaling)
+        public bool Create(Betaling betaling)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
             string sql = @"
                 INSERT INTO Betaling (BoekingID, Type, Bedrag, Methode, Status, Korting, DatumOrigine, DatumBetaald)
-                VALUES (@BoekingID, @Type, @Bedrag, @Methode, @Status, @Korting, @DatumOrigine, @DatumBetaald)
-                SELECT SCOPE_IDENTITY();";
+                VALUES (@BoekingID, @Type, @Bedrag, @Methode, @Status, @Korting, @DatumOrigine, @DatumBetaald)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -63,7 +62,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@DatumOrigine", betaling.DatumOrigine);
             cmd.Parameters.AddWithValue("@DatumBetaald", betaling.DatumBetaald);
 
-            return Convert.ToInt32(cmd.ExecuteScalar());
+            return cmd.ExecuteNonQuery() > 0;
         }
         public bool Update(Betaling betaling)
         {

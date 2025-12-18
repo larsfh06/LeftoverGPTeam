@@ -12,9 +12,9 @@ public class BetalingController : ControllerBase
     }
 
     [HttpGet("{id}/{Status}")]
-    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL")
+    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL", bool IncludeBoeking = false)
     {
-        var betaling = _dal.Betalingen.GetBetalingen(id, Status);
+        var betaling = _dal.Betalingen.GetBetalingen(id, Status, IncludeBoeking);
         if (betaling == null) return NotFound();
         return Ok(betaling);
     }

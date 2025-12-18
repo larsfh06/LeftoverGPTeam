@@ -12,9 +12,9 @@ public class FeedbackController : ControllerBase
     }
 
     [HttpGet("{id}/{gebruikerID}")]
-    public IActionResult GetFeedback(int id = 0, int gebruikerID = 0)
+    public IActionResult GetFeedback(int id = 0, int gebruikerID = 0, bool IncludeGebruiker = false, bool IncludeBoeking = false)
     {
-        var fb = _dal.Feedbacks.GetFeedback(id, gebruikerID);
+        var fb = _dal.Feedbacks.GetFeedback(id, gebruikerID, IncludeGebruiker, IncludeBoeking);
         if (fb == null) return NotFound();
         return Ok(fb);
     }
