@@ -1064,6 +1064,9 @@
           "campingID": {
             "type": "integer",
             "format": "int32"
+          },
+          "camping": {
+            "$ref": "#/components/schemas/Camping"
           }
         },
         "additionalProperties": false
@@ -1321,6 +1324,10 @@
             "nullable": true
           },
           "telefoon": {
+            "type": "string",
+            "nullable": true
+          },
+          "autokenteken": {
             "type": "string",
             "nullable": true
           },

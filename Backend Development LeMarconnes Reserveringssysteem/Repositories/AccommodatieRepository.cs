@@ -18,7 +18,9 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             var result = new List<Accommodatie>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Accommodatie WHERE @id = 0 OR AccommodatieID = @id ", connection);
+                "SELECT * FROM Accommodatie a " +
+                "JOIN Camping c ON a.CampingID = c.CampingID " +
+                "WHERE @id = 0 OR a.AccommodatieID = @id ", connection);
             command.Parameters.AddWithValue("@id", id);
             connection.Open();
 
@@ -28,7 +30,17 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 result.Add(new Accommodatie
                 {
                     AccommodatieID = (int)reader["AccommodatieID"],
-                    CampingID = (int)reader["CampingID"]
+                    CampingID = (int)reader["CampingID"],
+
+                    Camping = new Camping
+                    {
+                        CampingID = (int)reader["CampingID"],
+                        Regels = reader["Regels"] as string,
+                        Lengte = reader["Lengte"] as decimal?,
+                        Breedte = reader["Breedte"] as decimal?,
+                        Stroom = reader["Stroom"] as decimal?,
+                        Huisdieren = reader["Huisdieren"] as bool?
+                    }
                 });
             }
             return result;

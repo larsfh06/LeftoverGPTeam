@@ -8,4 +8,5 @@
     public string? Telefoon { get; set; }
     public string? Autokenteken { get; set; }
     public string? Taal { get; set; }
+    public ICollection<Boeking>? Boekingen { get; set; }
 }

@@ -11,4 +11,7 @@
     public byte? AantalOudereKinderen { get; set; }
     public string? Opmerking { get; set; }
     public bool? Cancelled { get; set; }
+    public Gebruiker? Gebruiker { get; set; }
+    public Accommodatie? Accommodatie { get; set; }
+    public ICollection<Betaling>? Betalingen { get; set; }
 }

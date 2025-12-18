@@ -9,4 +9,5 @@
     public decimal? Korting { get; set; }
     public DateTime? DatumOrigine { get; set; }
     public DateTime? DatumBetaald { get; set; }
+    public Boeking? Boeking { get; set; }
 }

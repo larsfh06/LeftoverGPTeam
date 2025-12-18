@@ -6,4 +6,6 @@
     public int FeedbackScore { get; set; }
     public string? FeedbackTekst { get; set; }
     public DateTime FeedbackDatum { get; set; }
+    public Gebruiker? Gebruiker { get; set; }
+    public Boeking? Boeking { get; set; }
 }
