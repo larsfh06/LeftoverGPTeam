@@ -14,7 +14,7 @@ public class BoekingController : ControllerBase
     [HttpGet("{id}/{GebruikerID}/{AccommodatieID}")]
     public IActionResult GetBoekingen(int id = 0, int GebruikerID = 0, int AccommodatieID = 0, int BetalingID = 0, bool IncludeGebruiker = false, bool IncludeAccommodatie = false, bool IncludeBetalingen = false)
     {
-        var res = _dal.Boekingen.GetBoekingen(id, GebruikerID, AccommodatieID, BetalingID,  IncludeBetalingen, IncludeGebruiker, IncludeAccommodatie);
+        var res = _dal.Boekingen.GetBoekingen(id, GebruikerID, AccommodatieID, BetalingID, IncludeGebruiker, IncludeAccommodatie, IncludeBetalingen);
         if (res == null) return NotFound();
         return Ok(res);
     }

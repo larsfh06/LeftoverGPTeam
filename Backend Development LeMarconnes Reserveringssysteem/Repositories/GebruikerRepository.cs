@@ -17,11 +17,11 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Gebruiker g LEFT JOIN Boeking b ON b.GebruikerID = g.GebruikerID " +
-                "WHERE GebruikerID = @id " +
+                "WHERE g.GebruikerID = @id " +
                 "OR (@id = 0 " +
                 "AND (@naam = 'ALL' OR Naam = @naam) " +
                 "AND (@telefoon = 'ALL' OR Telefoon = @telefoon) " +
-                "AND (@boekingID = 0 OR BoekingID = @boekingID))", connection);
+                "AND (@boekingID = 0 OR b.BoekingID = @boekingID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@naam", naam);
             command.Parameters.AddWithValue("@telefoon", telefoon);
@@ -42,7 +42,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Autokenteken = reader["Autokenteken"] as string,
                     Taal = reader["Taal"] as string
                 };
-                if (IncludeBoekingen)
+                if (IncludeBoekingen && reader["BoekingID"] != DBNull.Value)
                 {
                     var boeking = new Boeking
                     {

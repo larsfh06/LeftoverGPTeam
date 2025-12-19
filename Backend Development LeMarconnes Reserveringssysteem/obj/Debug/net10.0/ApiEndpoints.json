@@ -29,7 +29,22 @@
         "IsRequired": true
       },
       {
+        "Name": "CampingID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
         "Name": "IncludeCamping",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "BoekingID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeBoeking",
         "Type": "System.Boolean",
         "IsRequired": false
       }
@@ -113,7 +128,7 @@
   {
     "ContainingType": "BetalingController",
     "Method": "GetAllByStatus",
-    "RelativePath": "api/Betaling/{id}/{Status}",
+    "RelativePath": "api/Betaling/{id}/{Status}/{BoekingID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -126,6 +141,11 @@
       {
         "Name": "Status",
         "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "BoekingID",
+        "Type": "System.Int32",
         "IsRequired": true
       },
       {
@@ -175,8 +195,8 @@
   },
   {
     "ContainingType": "BoekingController",
-    "Method": "GetFiltered",
-    "RelativePath": "api/Boeking/{id}/{GebruikerID}",
+    "Method": "GetBoekingen",
+    "RelativePath": "api/Boeking/{id}/{GebruikerID}/{AccommodatieID}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -192,8 +212,13 @@
         "IsRequired": true
       },
       {
-        "Name": "IncludeBetalingen",
-        "Type": "System.Boolean",
+        "Name": "AccommodatieID",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "BetalingID",
+        "Type": "System.Int32",
         "IsRequired": false
       },
       {
@@ -203,6 +228,11 @@
       },
       {
         "Name": "IncludeAccommodatie",
+        "Type": "System.Boolean",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeBetalingen",
         "Type": "System.Boolean",
         "IsRequired": false
       }
@@ -284,6 +314,16 @@
         "Name": "huisdieren",
         "Type": "System.Boolean",
         "IsRequired": true
+      },
+      {
+        "Name": "AccommodatieID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "IncludeAccommodatie",
+        "Type": "System.Boolean",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -497,6 +537,11 @@
         "IsRequired": false
       },
       {
+        "Name": "BoekingID",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
         "Name": "IncludeBoeking",
         "Type": "System.Boolean",
         "IsRequired": false
@@ -563,6 +608,11 @@
         "Name": "telefoon",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "BoekingID",
+        "Type": "System.Int32",
+        "IsRequired": false
       },
       {
         "Name": "IncludeBoekingen",

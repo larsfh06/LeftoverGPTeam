@@ -22,7 +22,33 @@
             }
           },
           {
+            "name": "CampingID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
             "name": "IncludeCamping",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "BoekingID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "IncludeBoeking",
             "in": "query",
             "schema": {
               "type": "boolean",
@@ -129,7 +155,7 @@
         }
       }
     },
-    "/api/Betaling/{id}/{Status}": {
+    "/api/Betaling/{id}/{Status}/{BoekingID}": {
       "get": {
         "tags": [
           "Betaling"
@@ -152,6 +178,16 @@
             "schema": {
               "type": "string",
               "default": "ALL"
+            }
+          },
+          {
+            "name": "BoekingID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
             }
           },
           {
@@ -243,7 +279,7 @@
         }
       }
     },
-    "/api/Boeking/{id}/{GebruikerID}": {
+    "/api/Boeking/{id}/{GebruikerID}/{AccommodatieID}": {
       "get": {
         "tags": [
           "Boeking"
@@ -270,11 +306,22 @@
             }
           },
           {
-            "name": "IncludeBetalingen",
+            "name": "AccommodatieID",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "BetalingID",
             "in": "query",
             "schema": {
-              "type": "boolean",
-              "default": false
+              "type": "integer",
+              "format": "int32",
+              "default": 0
             }
           },
           {
@@ -287,6 +334,14 @@
           },
           {
             "name": "IncludeAccommodatie",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "IncludeBetalingen",
             "in": "query",
             "schema": {
               "type": "boolean",
@@ -404,6 +459,23 @@
             "name": "huisdieren",
             "in": "path",
             "required": true,
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          },
+          {
+            "name": "AccommodatieID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "IncludeAccommodatie",
+            "in": "query",
             "schema": {
               "type": "boolean",
               "default": false
@@ -777,6 +849,15 @@
             }
           },
           {
+            "name": "BoekingID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
             "name": "IncludeBoeking",
             "in": "query",
             "schema": {
@@ -918,6 +999,15 @@
             "schema": {
               "type": "string",
               "default": "ALL"
+            }
+          },
+          {
+            "name": "BoekingID",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
             }
           },
           {
@@ -1131,6 +1221,13 @@
           },
           "camping": {
             "$ref": "#/components/schemas/Camping"
+          },
+          "boekingen": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Boeking"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1279,6 +1376,9 @@
           "huisdieren": {
             "type": "boolean",
             "nullable": true
+          },
+          "accommodatie": {
+            "$ref": "#/components/schemas/Accommodatie"
           }
         },
         "additionalProperties": false

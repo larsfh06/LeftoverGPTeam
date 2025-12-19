@@ -21,8 +21,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "JOIN Gebruiker g on f.GebruikerID = g.GebruikerID " +
                 "JOIN Boeking b on f.BoekingID = b.BoekingID " +
                 "WHERE FeedbackID = @id OR (@id = 0 " +
-                "AND (@gebruikerID = 0 OR GebruikerID = @gebruikerID) " +
-                "AND (@boekingID = 0 OR BoekingID = @boekingID))", connection);
+                "AND (@gebruikerID = 0 OR f.GebruikerID = @gebruikerID) " +
+                "AND (@boekingID = 0 OR f.BoekingID = @boekingID))", connection);
 
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
@@ -42,7 +42,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     FeedbackDatum = (DateTime)reader["FeedbackDatum"]
                 };
 
-                if (IncludeGebruiker)
+                if (IncludeGebruiker && reader["GebruikerID"] != DBNull.Value)
                 {
                     Feedback.Gebruiker = new Gebruiker
                     {
@@ -57,7 +57,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     };
                 }
 
-                if (IncludeBoeking)
+                if (IncludeBoeking && reader["BoekingID"] != DBNull.Value)
                 {
                     Feedback.Boeking = new Boeking
                     {

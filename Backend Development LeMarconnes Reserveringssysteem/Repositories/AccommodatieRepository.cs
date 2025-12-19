@@ -13,16 +13,17 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
         // ------------------ Read ------------------
 
-        public List<Accommodatie> GetAccommodaties(int id, bool IncludeCamping, int CampingID, bool IncludeBoeking, int BoekingID)
+        public List<Accommodatie> GetAccommodaties(int id, int CampingID, bool IncludeCamping, int BoekingID, bool IncludeBoeking)
         {
             var result = new List<Accommodatie>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Accommodatie a " +
+                "SELECT * FROM Accommodatie a LEFT JOIN Boeking b ON b.AccommodatieID = a.AccommodatieID " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
                 "WHERE @id = 0 OR a.AccommodatieID = @id " +
-                "OR (@id = 0 AND (@campingID = 0 OR a.CampingID = @campingID))" + 
-                "SELECT * FROM Boeking WHERE a.BoekingID = @boekingid OR @boekingID = 0 " +
+                "OR (@id = 0 " +
+                "AND (@campingID = 0 OR a.CampingID = @campingID) " +
+                "AND (@boekingID = 0 OR BoekingID = @boekingID))" +
                 "ORDER BY Datum DESC", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@campingID", CampingID);
@@ -38,7 +39,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     CampingID = (int)reader["CampingID"]
                 };
 
-                if (IncludeCamping)
+                if (IncludeCamping && reader["CampingID"] != DBNull.Value)
                 {
                     accommodatie.Camping = new Camping
                     {
@@ -50,7 +51,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Huisdieren = reader["Huisdieren"] as bool?
                     };
                 }
-                if (IncludeBoeking)
+                if (IncludeBoeking && reader["BoekingID"] != DBNull.Value)
                 {
                     var boeking = new Boeking
                     {
@@ -66,8 +67,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Opmerking = reader["Opmerking"] as string,
                         Cancelled = reader["Cancelled"] as bool?
                     };
-                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
-                    accommodatie.Boeking.Add(boeking);
+                    accommodatie.Boekingen.Add(boeking);
                 }
                 result.Add(accommodatie);
             }

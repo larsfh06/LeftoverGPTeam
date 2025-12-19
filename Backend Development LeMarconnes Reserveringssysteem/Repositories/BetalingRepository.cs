@@ -16,9 +16,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             var result = new List<Betaling>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Betaling WHERE BetalingID = @id " +
+                "SELECT * FROM Betaling be JOIN Boeking b ON be.BoekingID = b.BoekingID " +
+                "WHERE BetalingID = @id " +
                 "OR (@id = 0 AND (@status = 'ALL' OR Status = @status) " +
-                "AND (@boekingID = 0 OR BoekingID = @boekingID)) ", connection);
+                "AND (@boekingID = 0 OR be.BoekingID = @boekingID)) ", connection);
             command.Parameters.AddWithValue("@status", Status);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@boekingID", BoekingID);
@@ -39,7 +40,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     DatumOrigine = reader["DatumOrigine"] as DateTime?,
                     DatumBetaald = reader["DatumBetaald"] as DateTime?
                 };
-                if (IncludeBoeking)
+                if (IncludeBoeking && reader["GebruikerID"] != DBNull.Value)
                 {
                     betaling.Boeking = new Boeking
                     {

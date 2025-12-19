@@ -13,5 +13,5 @@
     public bool? Cancelled { get; set; }
     public Gebruiker? Gebruiker { get; set; }
     public Accommodatie? Accommodatie { get; set; }
-    public ICollection<Betaling>? Betalingen { get; set; }
+    public ICollection<Betaling>? Betalingen { get; set; } = new List<Betaling>();
 }

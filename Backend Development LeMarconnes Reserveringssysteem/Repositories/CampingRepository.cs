@@ -16,16 +16,16 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             var result = new List<Camping>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Campings c " + 
-                "JOIN Accommodatie a ON a.CampingID = @id " + 
-                "WHERE CampingID = @id " +
-                "OR (@id = 0 AND (@stroom = 0 OR Stroom >= @stroom) " +
-                "AND (@huisdieren = false OR Huisdieren = @huisdieren) " +
-                "AND (@accomodatieID = 0 OR AccommodatieID = @accommodatieID))", connection);
+                "SELECT * FROM Camping c " + 
+                "JOIN Accommodatie a ON c.CampingID = a.CampingID " + 
+                "WHERE c.CampingID = @id " +
+                "OR (@id = 0 AND Stroom >= @stroom " +
+                "AND (@huisdieren = 'false' OR Huisdieren = @huisdieren) " +
+                "AND (@accommodatieID = 0 OR a.AccommodatieID = @accommodatieID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@stroom", stroom);
             command.Parameters.AddWithValue("@huisdieren", huisdieren);
-            command.Parameters.AddWithValue("@accommodateiID", AccommodatieID);
+            command.Parameters.AddWithValue("@accommodatieID", AccommodatieID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
@@ -40,7 +40,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Stroom = reader["Stroom"] as decimal?,
                     Huisdieren = reader["Huisdieren"] as bool?
                 };
-                if (IncludeAccommodatie)
+
+                if (IncludeAccommodatie && reader["AccommodatieID"] != DBNull.Value)
                 {
                     camping.Accommodatie = new Accommodatie
                     {

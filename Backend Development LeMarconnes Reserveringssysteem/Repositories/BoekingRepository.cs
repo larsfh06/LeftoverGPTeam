@@ -18,15 +18,15 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var command = new SqlCommand(
                 "SELECT * FROM Boeking b LEFT JOIN Betaling be ON b.BoekingID = be.BoekingID " +
                 "JOIN Gebruiker g ON b.GebruikerID = g.GebruikerID " +
-                "JOIN Acommodatie a ON b.AccommodatieID = a.AccommodatieID " +
-                "WHERE BoekingID = @id " +
+                "JOIN Accommodatie a ON b.AccommodatieID = a.AccommodatieID " +
+                "WHERE b.BoekingID = @id " +
                 "OR (@id = 0 AND (@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
                 "AND (@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
-                "AND (@betalingID = 0 OR b.BetalingID = @betalingID)) " +
+                "AND (@betalingID = 0 OR be.BetalingID = @betalingID)) " +
                 "ORDER BY DatumOrigine DESC", connection);
 
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
-            command.Parameters.AddWithValue("@accomodatieID", AccommodatieID);
+            command.Parameters.AddWithValue("@accommodatieID", AccommodatieID);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@betalingID", BetalingID);
             connection.Open();
@@ -49,7 +49,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Cancelled = reader["Cancelled"] as bool?
                 };
 
-                if (IncludeGebruiker)
+                if (IncludeGebruiker && reader["GebruikerID"] != DBNull.Value)
                 {
                     boeking.Gebruiker = new Gebruiker
                     {
@@ -64,7 +64,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     };
                 }
 
-                if (IncludeAccommodatie)
+                if (IncludeAccommodatie && reader["AccommodatieID"] != DBNull.Value)
                 {
                     boeking.Accommodatie = new Accommodatie
                     {
@@ -74,7 +74,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 }
 
 
-                if (IncludeBetalingen)
+                if (IncludeBetalingen && reader["BetalingID"] != DBNull.Value)
                 {
                     var betaling = new Betaling
                     {
