@@ -11,13 +11,14 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Betaling> GetBetalingen(int id, string Status, bool IncludeBoeking)
+        public List<Betaling> GetBetalingen(int id, string Status, int BoekingID, bool IncludeBoeking)
         {
             var result = new List<Betaling>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Betaling WHERE BetalingID = @id " +
-                "OR (@id = 0 AND (@status = 'ALL' OR Status = @status) AND (@boekingID = 0 OR BoekingID = @boekingID)) ", connection);
+                "OR (@id = 0 AND (@status = 'ALL' OR Status = @status) " +
+                "AND (@boekingID = 0 OR BoekingID = @boekingID)) ", connection);
             command.Parameters.AddWithValue("@status", Status);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@boekingID", BoekingID);
@@ -43,16 +44,16 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     betaling.Boeking = new Boeking
                     {
                         BoekingID = (int)reader["BoekingID"],
-                        GebruikerID = reader["GebruikerID"] as string,
+                        GebruikerID = (int)reader["GebruikerID"],
                         Datum = reader["Datum"] as DateTime?,
-                        AccommodatieID = reader["AccommodatieID"] as int,
-                        CheckInDatum = reader["CheckInDatum"] as DateTime?,
-                        CheckOutDatum = reader["CheckOutDatum"] as DateTime?,
-                        AantalVolwassenen = reader["AantalVolwassenen"] as int,
-                        AantalJongeKinderen = reader["AantalJongeKinderen"] as int,
-                        AantalOudereKinderen = reader["AantalOudereKinderen"] as int,
+                        AccommodatieID = (int)reader["AccommodatieID"],
+                        CheckInDatum = (DateTime)reader["CheckInDatum"],
+                        CheckOutDatum = (DateTime)reader["CheckOutDatum"],
+                        AantalVolwassenen = reader["AantalVolwassenen"] as byte?,
+                        AantalJongeKinderen = reader["AantalJongeKinderen"] as byte?,
+                        AantalOudereKinderen = reader["AantalOudereKinderen"] as byte?,
                         Opmerking = reader["Opmerking"] as string,
-                        Cancelled = reader["Cancelled"] as int
+                        Cancelled = reader["Cancelled"] as bool?
                     };
 
                 }

@@ -11,21 +11,24 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Boeking> GetFiltered(int id, int GebruikerID, bool IncludeBetalingen, bool IncludeGebruiker, bool IncludeAccommodatie)
+        public List<Boeking> GetBoekingen(int id, int GebruikerID, int AccommodatieID, int BetalingID, bool IncludeGebruiker, bool IncludeAccommodatie, bool IncludeBetalingen)
         {
             var result = new List<Boeking>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Boeking b " +
+                "SELECT * FROM Boeking b LEFT JOIN Betaling be ON b.BoekingID = be.BoekingID " +
                 "JOIN Gebruiker g ON b.GebruikerID = g.GebruikerID " +
                 "JOIN Acommodatie a ON b.AccommodatieID = a.AccommodatieID " +
                 "WHERE BoekingID = @id " +
-                "OR (@id = 0 AND (@gebruikerID = 0 OR GebruikerID = @gebruikerID) AND (@accommodatieID = 0 OR AccommodatieID = @accommodatieID)) " +
-                "SELECT * FROM Betaling WHERE BoekingID = @id OR @id = 0 " +
+                "OR (@id = 0 AND (@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
+                "AND (@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
+                "AND (@betalingID = 0 OR b.BetalingID = @betalingID)) " +
                 "ORDER BY DatumOrigine DESC", connection);
+
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
             command.Parameters.AddWithValue("@accomodatieID", AccommodatieID);
             command.Parameters.AddWithValue("@id", id);
+            command.Parameters.AddWithValue("@betalingID", BetalingID);
             connection.Open();
 
             using var reader = command.ExecuteReader();
@@ -51,10 +54,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     boeking.Gebruiker = new Gebruiker
                     {
                         GebruikerID = (int)reader["GebruikerID"],
-                        Naam = reader["Naam"] as string,
-                        Emailadres = reader["Emailadres"] as string,
-                        HashedWachtwoord = reader["HashedWachtwoord"] as string,
-                        Salt = reader["Salt"] as string,
+                        Naam = (string)reader["Naam"],
+                        Emailadres = (string)reader["Emailadres"],
+                        HashedWachtwoord = (string)reader["HashedWachtwoord"],
+                        Salt = (string)reader["Salt"],
                         Telefoon = reader["Telefoon"] as string,
                         Autokenteken = reader["Autokenteken"] as string,
                         Taal = reader["Taal"] as string
@@ -66,7 +69,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     boeking.Accommodatie = new Accommodatie
                     {
                         AccommodatieID = (int)reader["AccommodatieID"],
-                        CampingID = reader["CampingID"] as int
+                        CampingID = (int)reader["CampingID"]
                     };
                 }
 
@@ -86,7 +89,9 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         DatumBetaald = reader["DatumBetaald"] as DateTime?
 
                     };
+                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     boeking.Betalingen.Add(betaling);
+
                 }
                 result.Add(boeking);
             }

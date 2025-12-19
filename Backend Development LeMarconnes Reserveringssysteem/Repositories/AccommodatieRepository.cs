@@ -21,8 +21,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "SELECT * FROM Accommodatie a " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
                 "WHERE @id = 0 OR a.AccommodatieID = @id " +
-                "OR (@id = 0 AND (@campingID = 0 OR CampingID = @campingID))" + 
-                "SELECT * FROM Boeking WHERE BoekingID = @boekingid OR @boekingID = 0 " +
+                "OR (@id = 0 AND (@campingID = 0 OR a.CampingID = @campingID))" + 
+                "SELECT * FROM Boeking WHERE a.BoekingID = @boekingid OR @boekingID = 0 " +
                 "ORDER BY Datum DESC", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@campingID", CampingID);
@@ -66,6 +66,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Opmerking = reader["Opmerking"] as string,
                         Cancelled = reader["Cancelled"] as bool?
                     };
+                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     accommodatie.Boeking.Add(boeking);
                 }
                 result.Add(accommodatie);

@@ -19,7 +19,9 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "SELECT * FROM Campings c " + 
                 "JOIN Accommodatie a ON a.CampingID = @id " + 
                 "WHERE CampingID = @id " +
-                "OR (@id = 0 AND (@stroom = 0 OR Stroom >= @stroom) AND (@huisdieren = false OR Huisdieren = @huisdieren) AND (@accomodatieID = 0 OR AccommodatieID = @accommodatieID))", connection);
+                "OR (@id = 0 AND (@stroom = 0 OR Stroom >= @stroom) " +
+                "AND (@huisdieren = false OR Huisdieren = @huisdieren) " +
+                "AND (@accomodatieID = 0 OR AccommodatieID = @accommodatieID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@stroom", stroom);
             command.Parameters.AddWithValue("@huisdieren", huisdieren);
@@ -43,7 +45,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     camping.Accommodatie = new Accommodatie
                     {
                         AccommodatieID = (int)reader["AccommodatieID"],
-                        CampingID = reader["CampingID"] as int
+                        CampingID = (int)reader["CampingID"]
                     };
                 }
                 result.Add(camping);

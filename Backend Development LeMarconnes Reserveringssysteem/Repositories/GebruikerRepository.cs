@@ -11,15 +11,17 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon,int BoekingID, bool IncludeBoekingen)
+        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon, int BoekingID, bool IncludeBoekingen)
         {
             var result = new List<Gebruiker>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Gebruiker WHERE GebruikerID = @id " +
-                "OR (@id = 0 AND (@naam = 'ALL' OR Naam = @naam) " +
-                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon)) " + 
-                "SELECHT * FROM Boeking WHERE BoekingID = @boekingID OR @boekingID = 0", connection);
+                "SELECT * FROM Gebruiker g LEFT JOIN Boeking b ON b.GebruikerID = g.GebruikerID " +
+                "WHERE GebruikerID = @id " +
+                "OR (@id = 0 " +
+                "AND (@naam = 'ALL' OR Naam = @naam) " +
+                "AND (@telefoon = 'ALL' OR Telefoon = @telefoon) " +
+                "AND (@boekingID = 0 OR BoekingID = @boekingID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@naam", naam);
             command.Parameters.AddWithValue("@telefoon", telefoon);
@@ -37,6 +39,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     HashedWachtwoord = (string)reader["HashedWachtwoord"],
                     Salt = (string)reader["Salt"],
                     Telefoon = reader["Telefoon"] as string,
+                    Autokenteken = reader["Autokenteken"] as string,
                     Taal = reader["Taal"] as string
                 };
                 if (IncludeBoekingen)
@@ -55,7 +58,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Opmerking = reader["Opmerking"] as string,
                         Cancelled = reader["Cancelled"] as bool?
                     };
+
+                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     gebruiker.Boekingen.Add(boeking);
+
                 }
                 result.Add(gebruiker);
             }
@@ -69,8 +75,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             conn.Open();
 
             string sql = @"
-                INSERT INTO Gebruiker (Naam, Emailadres, HashedWachtwoord, Salt, Telefoon, Taal)
-                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Taal)";
+                INSERT INTO Gebruiker (Naam, Emailadres, HashedWachtwoord, Salt, Telefoon, Autokenteken, Taal)
+                VALUES (@Naam, @Emailadres, @HashedWachtwoord, @Salt, @Telefoon, @Autokenteken, @Taal)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -79,6 +85,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@HashedWachtwoord", gebruiker.HashedWachtwoord);
             cmd.Parameters.AddWithValue("@Salt", gebruiker.Salt);
             cmd.Parameters.AddWithValue("@Telefoon", gebruiker.Telefoon);
+            cmd.Parameters.AddWithValue("@Kenteken", gebruiker.Autokenteken);
             cmd.Parameters.AddWithValue("@Taal", gebruiker.Taal);
 
             return cmd.ExecuteNonQuery() > 0;
@@ -95,7 +102,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Emailadres = @Emailadres,
                     HashedWachtwoord = @HashedWachtwoord,
                     Salt = @Salt,
-                    Telefoon = @Telefoon
+                    Telefoon = @Telefoon,
+                    Autokenteken = @Autokenteken,
                     Taal = @Taal
                 WHERE GebruikerID = @id
                 ";
@@ -108,6 +116,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@HashedWachtwoord", gebruiker.HashedWachtwoord);
             cmd.Parameters.AddWithValue("@Salt", gebruiker.Salt);
             cmd.Parameters.AddWithValue("@Telefoon", gebruiker.Telefoon);
+            cmd.Parameters.AddWithValue("@Autokenteken", gebruiker.Autokenteken);
             cmd.Parameters.AddWithValue("@Taal", gebruiker.Taal);
 
             return cmd.ExecuteNonQuery() > 0;
