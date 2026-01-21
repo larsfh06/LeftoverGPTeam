@@ -140,7 +140,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     AantalOudereKinderen = @AantalOudereKinderen,
                     Opmerking = @Opmerking,
                     Cancelled = @Cancelled
-                WHERE BoekingID = @id
+                WHERE BoekingID = @BoekingID
                 ";
 
             using var cmd = new SqlCommand(sql, conn);
