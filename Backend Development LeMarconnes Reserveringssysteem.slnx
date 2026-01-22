@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Backend Development LeMarconnes Reserveringssysteem/Backend Development LeMarconnes Reserveringssysteem.csproj" />
+  <Project Path="UnitTests BED DAL/UnitTests BED DAL.csproj" Id="066aca7d-c827-4853-b8b4-7ee9f6b72d3e" />
 </Solution>
