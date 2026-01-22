@@ -82,6 +82,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
             using var cmd = new SqlCommand(sql, conn);
 
+            cmd.Parameters.AddWithValue("@id", medewerker.MedewerkerID);
             cmd.Parameters.AddWithValue("@Naam", medewerker.Naam);
             cmd.Parameters.AddWithValue("@Emailadres", medewerker.Emailadres);
             cmd.Parameters.AddWithValue("@HashedWachtwoord", medewerker.HashedWachtwoord);
