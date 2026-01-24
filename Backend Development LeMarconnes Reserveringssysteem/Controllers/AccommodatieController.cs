@@ -20,19 +20,29 @@ public class AccommodatieController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Accommodatie accommodatie)
+    public IActionResult Create([FromBody] AccommodatieRequest request)
     {
-        if (accommodatie == null) return BadRequest();
+        if (request == null) return BadRequest();
+
+        var accommodatie = new Accommodatie
+        {
+            CampingID = request.CampingID
+        };
 
         var newAccommodatie = _dal.Accommodaties.Create(accommodatie);
         return Ok(newAccommodatie);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Accommodatie accommodatie)
+    public IActionResult Update(int id, [FromBody] AccommodatieRequest request)
     {
-        if (accommodatie == null) return BadRequest();
-        accommodatie.AccommodatieID = id;
+        if (request == null) return BadRequest();
+
+        var accommodatie = new Accommodatie
+        {
+            AccommodatieID = id,
+            CampingID = request.CampingID
+        };
 
         var updated = _dal.Accommodaties.Update(accommodatie);
         if (!updated) return NotFound();
@@ -48,4 +58,10 @@ public class AccommodatieController : ControllerBase
 
         return NoContent();
     }
+
+    public class AccommodatieRequest
+    {
+        public int CampingID { get; set; }
+    }
+
 }

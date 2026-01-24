@@ -19,25 +19,54 @@ public class FaciliteitBlokkadeController : ControllerBase
         return Ok(blok);
     }
 
-
     [HttpPost]
-    public IActionResult Create([FromBody] FaciliteitBlokkade faciliteitblokkade)
+    public IActionResult Create([FromBody] FaciliteitBlokkadeRequest request)
     {
-        if (faciliteitblokkade == null) return BadRequest();
+        if (request == null) return BadRequest();
 
-        var newFaciliteitBlokkade = _dal.FaciliteitBlokkades.Create(faciliteitblokkade);
+        var faciliteitBlokkade = new FaciliteitBlokkade
+        {
+            FaciliteitID = request.FaciliteitID,
+            BlokkadeType = request.BlokkadeType,
+            BeginDatum = request.BeginDatum,
+            EindDatum = request.EindDatum,
+            BlokkadeReden = request.BlokkadeReden,
+            Status = request.Status
+        };
+
+        var newFaciliteitBlokkade = _dal.FaciliteitBlokkades.Create(faciliteitBlokkade);
         return Ok(newFaciliteitBlokkade);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] FaciliteitBlokkade faciliteitblokkade)
+    public IActionResult Update(int id, [FromBody] FaciliteitBlokkadeRequest request)
     {
-        if (faciliteitblokkade == null) return BadRequest();
-        faciliteitblokkade.BlokkadeID = id;
+        if (request == null) return BadRequest();
 
-        var updated = _dal.FaciliteitBlokkades.Update(faciliteitblokkade);
+        var faciliteitBlokkade = new FaciliteitBlokkade
+        {
+            BlokkadeID = id,
+            FaciliteitID = request.FaciliteitID,
+            BlokkadeType = request.BlokkadeType,
+            BeginDatum = request.BeginDatum,
+            EindDatum = request.EindDatum,
+            BlokkadeReden = request.BlokkadeReden,
+            Status = request.Status
+        };
+
+        var updated = _dal.FaciliteitBlokkades.Update(faciliteitBlokkade);
         if (!updated) return NotFound();
 
         return NoContent();
+    }
+
+    public class FaciliteitBlokkadeRequest
+    {
+        public int FaciliteitID { get; set; }
+        public string? BlokkadeType { get; set; }
+        public DateTime BeginDatum { get; set; }
+        public DateTime EindDatum { get; set; }
+        public string? BlokkadeReden { get; set; }
+        public string? Status { get; set; }
     }
 }

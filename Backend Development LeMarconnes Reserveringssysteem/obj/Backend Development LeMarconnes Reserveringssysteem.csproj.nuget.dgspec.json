@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\1nst4\\Documents\\Github\\LGPTeam\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj": {}
+    "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\1nst4\\Documents\\Github\\LGPTeam\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj": {
+    "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\1nst4\\Documents\\Github\\LGPTeam\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj",
+        "projectUniqueName": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj",
         "projectName": "Backend Development LeMarconnes Reserveringssysteem",
-        "projectPath": "C:\\Users\\1nst4\\Documents\\Github\\LGPTeam\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj",
+        "projectPath": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\Backend Development LeMarconnes Reserveringssysteem.csproj",
         "packagesPath": "C:\\Users\\1nst4\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\1nst4\\Documents\\Github\\LGPTeam\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\obj\\",
+        "outputPath": "C:\\Users\\1nst4\\Documents\\GitHub\\LeftoverGPTeam\\Backend Development LeMarconnes Reserveringssysteem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -98,7 +98,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.101/PortableRuntimeIdentifierGraph.json",
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\10.0.102/PortableRuntimeIdentifierGraph.json",
           "packagesToPrune": {
             "Microsoft.AspNetCore": "(,10.0.32767]",
             "Microsoft.AspNetCore.Antiforgery": "(,10.0.32767]",

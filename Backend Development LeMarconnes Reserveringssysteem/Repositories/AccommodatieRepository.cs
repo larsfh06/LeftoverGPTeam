@@ -18,7 +18,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             var result = new List<Accommodatie>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Accommodatie a LEFT JOIN Boeking b ON b.AccommodatieID = a.AccommodatieID " +
+                "SELECT * FROM Accommodatie a LEFT JOIN Boeking b ON a.AccommodatieID = b.AccommodatieID " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
                 "WHERE @id = 0 OR a.AccommodatieID = @id " +
                 "OR (@id = 0 " +

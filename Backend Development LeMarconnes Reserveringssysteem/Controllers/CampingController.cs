@@ -12,7 +12,7 @@ public class CampingController : ControllerBase
     }
 
     [HttpGet("{id}/{stroom}/{huisdieren}")]
-    public IActionResult GetCampings(int id = 0, int stroom = 0, bool huisdieren = false, int AccommodatieID = 0,  bool IncludeAccommodatie = false)
+    public IActionResult GetCampings(int id = 0, int stroom = 0, bool huisdieren = false, int AccommodatieID = 0, bool IncludeAccommodatie = false)
     {
         var camping = _dal.Campings.GetCampings(id, stroom, huisdieren, AccommodatieID, IncludeAccommodatie);
         if (camping == null) return NotFound();
@@ -20,19 +20,37 @@ public class CampingController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Camping camping)
+    public IActionResult Create([FromBody] CampingRequest request)
     {
-        if (camping == null) return BadRequest();
+        if (request == null) return BadRequest();
+
+        var camping = new Camping
+        {
+            Regels = request.Regels,
+            Lengte = request.Lengte,
+            Breedte = request.Breedte,
+            Stroom = request.Stroom,
+            Huisdieren = request.Huisdieren
+        };
 
         var newCamping = _dal.Campings.Create(camping);
         return Ok(newCamping);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Camping camping)
+    public IActionResult Update(int id, [FromBody] CampingRequest request)
     {
-        if (camping == null) return BadRequest();
-        camping.CampingID = id;
+        if (request == null) return BadRequest();
+
+        var camping = new Camping
+        {
+            CampingID = id,
+            Regels = request.Regels,
+            Lengte = request.Lengte,
+            Breedte = request.Breedte,
+            Stroom = request.Stroom,
+            Huisdieren = request.Huisdieren
+        };
 
         var updated = _dal.Campings.Update(camping);
         if (!updated) return NotFound();
@@ -47,5 +65,14 @@ public class CampingController : ControllerBase
         if (!deleted) return NotFound();
 
         return NoContent();
+    }
+
+    public class CampingRequest
+    {
+        public string? Regels { get; set; }
+        public decimal? Lengte { get; set; }
+        public decimal? Breedte { get; set; }
+        public decimal? Stroom { get; set; }
+        public bool? Huisdieren { get; set; }
     }
 }

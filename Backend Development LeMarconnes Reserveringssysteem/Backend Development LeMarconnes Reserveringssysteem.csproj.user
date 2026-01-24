@@ -2,5 +2,6 @@
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <ActiveDebugProfile>https</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\1nst4\Documents\GitHub\LeftoverGPTeam\Backend Development LeMarconnes Reserveringssysteem\Properties\PublishProfiles\WebApp-LGPTeam-Camping-Marconnes - Zip Deploy.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>

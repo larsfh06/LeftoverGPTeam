@@ -6,3 +6,6 @@ Backend Development LeMarconnes Reserveringssysteem/obj/Debug/net10.0/Backend De
 .vs/Backend Development LeMarconnes Reserveringssysteem.slnx/v18/.suo
 .vs/Backend Development LeMarconnes Reserveringssysteem.slnx/v18/DocumentLayout.backup.json
 *.bin
+/Backend Development LeMarconnes Reserveringssysteem/obj
+/Backend Development LeMarconnes Reserveringssysteem/bin
+/.vs/Backend Development LeMarconnes Reserveringssysteem.slnx/FileContentIndex

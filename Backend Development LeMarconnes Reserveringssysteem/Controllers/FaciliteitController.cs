@@ -11,7 +11,6 @@ public class FaciliteitController : ControllerBase
         _dal = dal;
     }
 
-
     [HttpGet("{id}")]
     public IActionResult GetFaciliteiten(int id = 0)
     {
@@ -21,19 +20,37 @@ public class FaciliteitController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Faciliteit faciliteit)
+    public IActionResult Create([FromBody] FaciliteitRequest request)
     {
-        if (faciliteit == null) return BadRequest();
+        if (request == null) return BadRequest();
+
+        var faciliteit = new Faciliteit
+        {
+            FaciliteitNaam = request.FaciliteitNaam,
+            Omschrijving = request.Omschrijving,
+            Capaciteit = request.Capaciteit,
+            Openingstijd = request.Openingstijd,
+            Sluitingstijd = request.Sluitingstijd
+        };
 
         var newFaciliteit = _dal.Faciliteiten.Create(faciliteit);
         return Ok(newFaciliteit);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Faciliteit faciliteit)
+    public IActionResult Update(int id, [FromBody] FaciliteitRequest request)
     {
-        if (faciliteit == null) return BadRequest();
-        faciliteit.FaciliteitID = id;
+        if (request == null) return BadRequest();
+
+        var faciliteit = new Faciliteit
+        {
+            FaciliteitID = id,
+            FaciliteitNaam = request.FaciliteitNaam,
+            Omschrijving = request.Omschrijving,
+            Capaciteit = request.Capaciteit,
+            Openingstijd = request.Openingstijd,
+            Sluitingstijd = request.Sluitingstijd
+        };
 
         var updated = _dal.Faciliteiten.Update(faciliteit);
         if (!updated) return NotFound();
@@ -48,5 +65,14 @@ public class FaciliteitController : ControllerBase
         if (!deleted) return NotFound();
 
         return NoContent();
+    }
+
+    public class FaciliteitRequest
+    {
+        public string FaciliteitNaam { get; set; } = string.Empty;
+        public string? Omschrijving { get; set; }
+        public int? Capaciteit { get; set; }
+        public DateTime? Openingstijd { get; set; }
+        public DateTime? Sluitingstijd { get; set; }
     }
 }

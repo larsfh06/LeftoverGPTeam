@@ -12,7 +12,7 @@ public class BetalingController : ControllerBase
     }
 
     [HttpGet("{id}/{Status}/{BoekingID}")]
-    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL",int BoekingID = 0, bool IncludeBoeking = false)
+    public IActionResult GetAllByStatus(int id = 0, string Status = "ALL", int BoekingID = 0, bool IncludeBoeking = false)
     {
         var betaling = _dal.Betalingen.GetBetalingen(id, Status, BoekingID, IncludeBoeking);
         if (betaling == null) return NotFound();
@@ -20,23 +20,59 @@ public class BetalingController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult Create([FromBody] Betaling betaling)
+    public IActionResult Create([FromBody] BetalingRequest request)
     {
-        if (betaling == null) return BadRequest();
+        if (request == null) return BadRequest();
+
+        var betaling = new Betaling
+        {
+            BoekingID = request.BoekingID,
+            Type = request.Type,
+            Bedrag = request.Bedrag,
+            Methode = request.Methode,
+            Status = request.Status,
+            Korting = request.Korting,
+            DatumOrigine = request.DatumOrigine,
+            DatumBetaald = request.DatumBetaald
+        };
 
         var newBetaling = _dal.Betalingen.Create(betaling);
         return Ok(newBetaling);
     }
 
     [HttpPut("{id}")]
-    public IActionResult Update(int id, [FromBody] Betaling betaling)
+    public IActionResult Update(int id, [FromBody] BetalingRequest request)
     {
-        if (betaling == null) return BadRequest();
-        betaling.BetalingID = id;
+        if (request == null) return BadRequest();
+
+        var betaling = new Betaling
+        {
+            BetalingID = id,
+            BoekingID = request.BoekingID,
+            Type = request.Type,
+            Bedrag = request.Bedrag,
+            Methode = request.Methode,
+            Status = request.Status,
+            Korting = request.Korting,
+            DatumOrigine = request.DatumOrigine,
+            DatumBetaald = request.DatumBetaald
+        };
 
         var updated = _dal.Betalingen.Update(betaling);
         if (!updated) return NotFound();
 
         return NoContent();
+    }
+
+    public class BetalingRequest
+    {
+        public int BoekingID { get; set; }
+        public string Type { get; set; } = string.Empty;
+        public decimal Bedrag { get; set; }
+        public string? Methode { get; set; }
+        public string? Status { get; set; }
+        public decimal? Korting { get; set; }
+        public DateTime? DatumOrigine { get; set; }
+        public DateTime? DatumBetaald { get; set; }
     }
 }
