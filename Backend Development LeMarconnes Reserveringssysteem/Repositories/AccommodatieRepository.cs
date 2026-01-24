@@ -12,19 +12,22 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         }
 
         // ------------------ Read ------------------
-
         public List<Accommodatie> GetAccommodaties(int id, int CampingID, bool IncludeCamping, int BoekingID, bool IncludeBoeking)
         {
             var result = new List<Accommodatie>();
+            var dict = new Dictionary<int, Accommodatie>();
+
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Accommodatie a LEFT JOIN Boeking b ON a.AccommodatieID = b.AccommodatieID " +
+                "SELECT * FROM Accommodatie a " +
+                "LEFT JOIN Boeking b ON a.AccommodatieID = b.AccommodatieID " +
                 "JOIN Camping c ON a.CampingID = c.CampingID " +
                 "WHERE @id = 0 OR a.AccommodatieID = @id " +
                 "OR (@id = 0 " +
                 "AND (@campingID = 0 OR a.CampingID = @campingID) " +
-                "AND (@boekingID = 0 OR BoekingID = @boekingID))" +
-                "ORDER BY Datum DESC", connection);
+                "AND (@boekingID = 0 OR b.BoekingID = @boekingID)) " +
+                "ORDER BY b.Datum DESC", connection);
+
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@campingID", CampingID);
             command.Parameters.AddWithValue("@boekingID", BoekingID);
@@ -33,24 +36,33 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                var accommodatie = new Accommodatie
-                {
-                    AccommodatieID = (int)reader["AccommodatieID"],
-                    CampingID = (int)reader["CampingID"]
-                };
+                int accommodatieId = (int)reader["AccommodatieID"];
 
-                if (IncludeCamping && reader["CampingID"] != DBNull.Value)
+                if (!dict.TryGetValue(accommodatieId, out var accommodatie))
                 {
-                    accommodatie.Camping = new Camping
+                    accommodatie = new Accommodatie
                     {
-                        CampingID = (int)reader["CampingID"],
-                        Regels = reader["Regels"] as string,
-                        Lengte = reader["Lengte"] as decimal?,
-                        Breedte = reader["Breedte"] as decimal?,
-                        Stroom = reader["Stroom"] as decimal?,
-                        Huisdieren = reader["Huisdieren"] as bool?
+                        AccommodatieID = accommodatieId,
+                        CampingID = (int)reader["CampingID"]
                     };
+
+                    if (IncludeCamping && reader["CampingID"] != DBNull.Value)
+                    {
+                        accommodatie.Camping = new Camping
+                        {
+                            CampingID = (int)reader["CampingID"],
+                            Regels = reader["Regels"] as string,
+                            Lengte = reader["Lengte"] as decimal?,
+                            Breedte = reader["Breedte"] as decimal?,
+                            Stroom = reader["Stroom"] as decimal?,
+                            Huisdieren = reader["Huisdieren"] as bool?
+                        };
+                    }
+
+                    dict.Add(accommodatieId, accommodatie);
+                    result.Add(accommodatie);
                 }
+
                 if (IncludeBoeking && reader["BoekingID"] != DBNull.Value)
                 {
                     var boeking = new Boeking
@@ -67,10 +79,11 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Opmerking = reader["Opmerking"] as string,
                         Cancelled = reader["Cancelled"] as bool?
                     };
+
                     accommodatie.Boekingen.Add(boeking);
                 }
-                result.Add(accommodatie);
             }
+
             return result;
         }
         // ------------------ Write ------------------
