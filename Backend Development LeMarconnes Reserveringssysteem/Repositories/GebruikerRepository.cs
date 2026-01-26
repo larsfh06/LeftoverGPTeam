@@ -11,7 +11,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon, int BoekingID, bool IncludeBoekingen)
+        public List<Gebruiker> GetGebruikers(int id, string naam, string telefoon, string email, int BoekingID, bool IncludeBoekingen)
         {
             var result = new List<Gebruiker>();
             using var connection = new SqlConnection(_connectionString);
@@ -21,10 +21,12 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "OR (@id = 0 " +
                 "AND (@naam = 'ALL' OR Naam = @naam) " +
                 "AND (@telefoon = 'ALL' OR Telefoon = @telefoon) " +
+                "AND (@email = 'ALL' OR Emailadres = @email) " +
                 "AND (@boekingID = 0 OR b.BoekingID = @boekingID))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@naam", naam);
             command.Parameters.AddWithValue("@telefoon", telefoon);
+            command.Parameters.AddWithValue("@email", email);
             command.Parameters.AddWithValue("@boekingID", BoekingID);
             connection.Open();
 

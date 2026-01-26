@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.SqlClient;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 {
@@ -11,24 +12,29 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Boeking> GetBoekingen(int id, int GebruikerID, int AccommodatieID, int BetalingID, bool IncludeGebruiker, bool IncludeAccommodatie, bool IncludeBetalingen)
+        public List<Boeking> GetBoekingen(int id, int GebruikerID, int AccommodatieID, int BetalingID, DateTime? Datum, bool IncludeGebruiker, bool IncludeAccommodatie, bool IncludeBetalingen)
         {
             var result = new List<Boeking>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Boeking b LEFT JOIN Betaling be ON b.BoekingID = be.BoekingID " +
+                "SELECT * " +
+                "FROM Boeking b " +
+                "LEFT JOIN Betaling be ON b.BoekingID = be.BoekingID " +
                 "JOIN Gebruiker g ON b.GebruikerID = g.GebruikerID " +
                 "JOIN Accommodatie a ON b.AccommodatieID = a.AccommodatieID " +
-                "WHERE b.BoekingID = @id " +
-                "OR (@id = 0 AND (@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
-                "AND (@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
-                "AND (@betalingID = 0 OR be.BetalingID = @betalingID)) " +
-                "ORDER BY DatumOrigine DESC", connection);
+                "WHERE b.BoekingID = @id OR " +
+                "(@id = 0 " +
+                "AND(@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
+                "AND(@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
+                "AND(@betalingID = 0 OR be.BetalingID = @betalingID) " +
+                "AND (@datum IS NULL OR (@datum >= b.CheckInDatum AND @datum < b.CheckOutDatum))) " +
+                "ORDER BY DatumOrigine DESC; ");
 
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
             command.Parameters.AddWithValue("@accommodatieID", AccommodatieID);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@betalingID", BetalingID);
+            command.Parameters.AddWithValue("@datum", Datum.HasValue ? Datum.Value : (object)DBNull.Value);
             connection.Open();
 
             using var reader = command.ExecuteReader();

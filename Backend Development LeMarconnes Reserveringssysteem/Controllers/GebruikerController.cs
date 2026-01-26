@@ -12,9 +12,9 @@ public class GebruikerController : ControllerBase
     }
 
     [HttpGet("{id}/{naam}/{telefoon}")]
-    public IActionResult GetGebruikers(int id = 0, string naam = "ALL", string telefoon = "ALL", int BoekingID = 0, bool IncludeBoekingen = false)
+    public IActionResult GetGebruikers(int id = 0, string naam = "ALL", string telefoon = "ALL", string email = "ALL", int BoekingID = 0, bool IncludeBoekingen = false)
     {
-        var user = _dal.Gebruikers.GetGebruikers(id, naam, telefoon, BoekingID, IncludeBoekingen);
+        var user = _dal.Gebruikers.GetGebruikers(id, naam, telefoon, email, BoekingID, IncludeBoekingen);
         if (user == null) return NotFound();
         return Ok(user);
     }
