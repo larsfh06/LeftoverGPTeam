@@ -28,7 +28,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "AND(@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
                 "AND(@betalingID = 0 OR be.BetalingID = @betalingID) " +
                 "AND (@datum IS NULL OR (@datum >= b.CheckInDatum AND @datum < b.CheckOutDatum))) " +
-                "ORDER BY DatumOrigine DESC; ");
+                "ORDER BY DatumOrigine DESC;", connection);
 
             command.Parameters.AddWithValue("@gebruikerID", GebruikerID);
             command.Parameters.AddWithValue("@accommodatieID", AccommodatieID);
