@@ -26,7 +26,8 @@ public class AccommodatieController : ControllerBase
 
         var accommodatie = new Accommodatie
         {
-            CampingID = request.CampingID
+            CampingID = request.CampingID,
+            Prijs = request.Prijs
         };
 
         var newAccommodatie = _dal.Accommodaties.Create(accommodatie);
@@ -41,7 +42,8 @@ public class AccommodatieController : ControllerBase
         var accommodatie = new Accommodatie
         {
             AccommodatieID = id,
-            CampingID = request.CampingID
+            CampingID = request.CampingID,
+            Prijs = request.Prijs
         };
 
         var updated = _dal.Accommodaties.Update(accommodatie);
@@ -62,6 +64,7 @@ public class AccommodatieController : ControllerBase
     public class AccommodatieRequest
     {
         public int CampingID { get; set; }
+        public decimal Prijs { get; set; }
     }
 
 }

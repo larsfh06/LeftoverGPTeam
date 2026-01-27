@@ -11,6 +11,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
         {
             _connectionString = connectionString;
         }
+
         // ------------------ Read ------------------
         public List<Boeking> GetBoekingen(int id, int GebruikerID, int AccommodatieID, int BetalingID, DateTime? Datum, bool IncludeGebruiker, bool IncludeAccommodatie, bool IncludeBetalingen)
         {
@@ -24,9 +25,9 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                 "JOIN Accommodatie a ON b.AccommodatieID = a.AccommodatieID " +
                 "WHERE b.BoekingID = @id OR " +
                 "(@id = 0 " +
-                "AND(@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
-                "AND(@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
-                "AND(@betalingID = 0 OR be.BetalingID = @betalingID) " +
+                "AND (@gebruikerID = 0 OR b.GebruikerID = @gebruikerID) " +
+                "AND (@accommodatieID = 0 OR b.AccommodatieID = @accommodatieID) " +
+                "AND (@betalingID = 0 OR be.BetalingID = @betalingID) " +
                 "AND (@datum IS NULL OR (@datum >= b.CheckInDatum AND @datum < b.CheckOutDatum))) " +
                 "ORDER BY DatumOrigine DESC;", connection);
 
@@ -35,9 +36,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@betalingID", BetalingID);
             command.Parameters.AddWithValue("@datum", Datum.HasValue ? Datum.Value : (object)DBNull.Value);
-            connection.Open();
 
+            connection.Open();
             using var reader = command.ExecuteReader();
+
             while (reader.Read())
             {
                 var boeking = new Boeking
@@ -75,10 +77,10 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     boeking.Accommodatie = new Accommodatie
                     {
                         AccommodatieID = (int)reader["AccommodatieID"],
-                        CampingID = (int)reader["CampingID"]
+                        CampingID = (int)reader["CampingID"],
+                        Prijs = reader["Prijs"] as decimal?
                     };
                 }
-
 
                 if (IncludeBetalingen && reader["BetalingID"] != DBNull.Value)
                 {
@@ -93,25 +95,48 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                         Korting = reader["Korting"] as decimal?,
                         DatumOrigine = reader["DatumOrigine"] as DateTime?,
                         DatumBetaald = reader["DatumBetaald"] as DateTime?
-
                     };
-                    #pragma warning disable CS8602 // Dereference of a possibly null reference.
                     boeking.Betalingen.Add(betaling);
-
                 }
+
                 result.Add(boeking);
             }
+
             return result;
         }
+
         // ------------------ Write ------------------
         public bool Create(Boeking boeking)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
 
+            // Overlap check
+            string overlapCheckSql = @"
+                SELECT COUNT(1)
+                FROM Boeking
+                WHERE AccommodatieID = @AccommodatieID
+                  AND @CheckInDatum < CheckOutDatum
+                  AND @CheckOutDatum > CheckInDatum
+                  AND (Cancelled = 0 OR Cancelled IS NULL)";
+
+            using (var overlapCmd = new SqlCommand(overlapCheckSql, conn))
+            {
+                overlapCmd.Parameters.AddWithValue("@AccommodatieID", boeking.AccommodatieID);
+                overlapCmd.Parameters.AddWithValue("@CheckInDatum", boeking.CheckInDatum);
+                overlapCmd.Parameters.AddWithValue("@CheckOutDatum", boeking.CheckOutDatum);
+
+                if ((int)overlapCmd.ExecuteScalar() > 0)
+                    return false;
+            }
+
             string sql = @"
-                INSERT INTO Boeking (GebruikerID, Datum, AccommodatieID, CheckInDatum, CheckOutDatum, AantalVolwassenen, AantalJongeKinderen, AantalOudereKinderen, Opmerking, Cancelled)
-                VALUES (@GebruikerID, @Datum, @AccommodatieID, @CheckInDatum, @CheckOutDatum, @AantalVolwassenen, @AantalJongeKinderen, @AantalOudereKinderen, @Opmerking, @Cancelled)";
+                INSERT INTO Boeking 
+                (GebruikerID, Datum, AccommodatieID, CheckInDatum, CheckOutDatum, 
+                 AantalVolwassenen, AantalJongeKinderen, AantalOudereKinderen, Opmerking, Cancelled)
+                VALUES 
+                (@GebruikerID, @Datum, @AccommodatieID, @CheckInDatum, @CheckOutDatum, 
+                 @AantalVolwassenen, @AantalJongeKinderen, @AantalOudereKinderen, @Opmerking, @Cancelled)";
 
             using var cmd = new SqlCommand(sql, conn);
 
@@ -128,10 +153,32 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
             return cmd.ExecuteNonQuery() > 0;
         }
+
         public bool Update(Boeking boeking)
         {
             using var conn = new SqlConnection(_connectionString);
             conn.Open();
+
+            // Overlap check (exclude current booking)
+            string overlapCheckSql = @"
+                SELECT COUNT(1)
+                FROM Boeking
+                WHERE AccommodatieID = @AccommodatieID
+                  AND BoekingID <> @BoekingID
+                  AND @CheckInDatum < CheckOutDatum
+                  AND @CheckOutDatum > CheckInDatum
+                  AND (Cancelled = 0 OR Cancelled IS NULL)";
+
+            using (var overlapCmd = new SqlCommand(overlapCheckSql, conn))
+            {
+                overlapCmd.Parameters.AddWithValue("@AccommodatieID", boeking.AccommodatieID);
+                overlapCmd.Parameters.AddWithValue("@BoekingID", boeking.BoekingID);
+                overlapCmd.Parameters.AddWithValue("@CheckInDatum", boeking.CheckInDatum);
+                overlapCmd.Parameters.AddWithValue("@CheckOutDatum", boeking.CheckOutDatum);
+
+                if ((int)overlapCmd.ExecuteScalar() > 0)
+                    return false;
+            }
 
             string sql = @"
                 UPDATE Boeking
@@ -146,8 +193,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     AantalOudereKinderen = @AantalOudereKinderen,
                     Opmerking = @Opmerking,
                     Cancelled = @Cancelled
-                WHERE BoekingID = @id
-                ";
+                WHERE BoekingID = @BoekingID";
 
             using var cmd = new SqlCommand(sql, conn);
 

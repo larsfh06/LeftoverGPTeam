@@ -8,8 +8,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "accommodatie",
-        "Type": "Accommodatie",
+        "Name": "request",
+        "Type": "AccommodatieController\u002BAccommodatieRequest",
         "IsRequired": true
       }
     ],
@@ -65,8 +65,8 @@
         "IsRequired": true
       },
       {
-        "Name": "accommodatie",
-        "Type": "Accommodatie",
+        "Name": "request",
+        "Type": "AccommodatieController\u002BAccommodatieRequest",
         "IsRequired": true
       }
     ],
@@ -97,8 +97,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "betaling",
-        "Type": "Betaling",
+        "Name": "request",
+        "Type": "BetalingController\u002BBetalingRequest",
         "IsRequired": true
       }
     ],
@@ -118,8 +118,8 @@
         "IsRequired": true
       },
       {
-        "Name": "betaling",
-        "Type": "Betaling",
+        "Name": "request",
+        "Type": "BetalingController\u002BBetalingRequest",
         "IsRequired": true
       }
     ],
@@ -222,6 +222,11 @@
         "IsRequired": false
       },
       {
+        "Name": "Datum",
+        "Type": "System.Nullable\u00601[[System.DateTime, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
         "Name": "IncludeGebruiker",
         "Type": "System.Boolean",
         "IsRequired": false
@@ -248,8 +253,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "camping",
-        "Type": "Camping",
+        "Name": "request",
+        "Type": "CampingController\u002BCampingRequest",
         "IsRequired": true
       }
     ],
@@ -269,8 +274,8 @@
         "IsRequired": true
       },
       {
-        "Name": "camping",
-        "Type": "Camping",
+        "Name": "request",
+        "Type": "CampingController\u002BCampingRequest",
         "IsRequired": true
       }
     ],
@@ -337,8 +342,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "faciliteit",
-        "Type": "Faciliteit",
+        "Name": "request",
+        "Type": "FaciliteitController\u002BFaciliteitRequest",
         "IsRequired": true
       }
     ],
@@ -374,8 +379,8 @@
         "IsRequired": true
       },
       {
-        "Name": "faciliteit",
-        "Type": "Faciliteit",
+        "Name": "request",
+        "Type": "FaciliteitController\u002BFaciliteitRequest",
         "IsRequired": true
       }
     ],
@@ -406,8 +411,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "faciliteitblokkade",
-        "Type": "FaciliteitBlokkade",
+        "Name": "request",
+        "Type": "FaciliteitBlokkadeController\u002BFaciliteitBlokkadeRequest",
         "IsRequired": true
       }
     ],
@@ -427,8 +432,8 @@
         "IsRequired": true
       },
       {
-        "Name": "faciliteitblokkade",
-        "Type": "FaciliteitBlokkade",
+        "Name": "request",
+        "Type": "FaciliteitBlokkadeController\u002BFaciliteitBlokkadeRequest",
         "IsRequired": true
       }
     ],
@@ -469,8 +474,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "feedback",
-        "Type": "Feedback",
+        "Name": "request",
+        "Type": "FeedbackController\u002BFeedbackRequest",
         "IsRequired": true
       }
     ],
@@ -490,8 +495,8 @@
         "IsRequired": true
       },
       {
-        "Name": "feedback",
-        "Type": "Feedback",
+        "Name": "request",
+        "Type": "FeedbackController\u002BFeedbackRequest",
         "IsRequired": true
       }
     ],
@@ -558,8 +563,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "gebruiker",
-        "Type": "Gebruiker",
+        "Name": "request",
+        "Type": "GebruikerController\u002BGebruikerRequest",
         "IsRequired": true
       }
     ],
@@ -579,8 +584,8 @@
         "IsRequired": true
       },
       {
-        "Name": "gebruiker",
-        "Type": "Gebruiker",
+        "Name": "request",
+        "Type": "GebruikerController\u002BGebruikerRequest",
         "IsRequired": true
       }
     ],
@@ -608,6 +613,11 @@
         "Name": "telefoon",
         "Type": "System.String",
         "IsRequired": true
+      },
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
       },
       {
         "Name": "BoekingID",

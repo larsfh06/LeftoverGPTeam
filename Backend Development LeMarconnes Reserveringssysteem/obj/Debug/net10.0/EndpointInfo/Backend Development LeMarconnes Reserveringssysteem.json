@@ -81,17 +81,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             }
           }
@@ -133,17 +133,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Accommodatie"
+                "$ref": "#/components/schemas/AccommodatieRequest"
               }
             }
           }
@@ -215,17 +215,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             }
           }
@@ -257,17 +257,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Betaling"
+                "$ref": "#/components/schemas/BetalingRequest"
               }
             }
           }
@@ -322,6 +322,14 @@
               "type": "integer",
               "format": "int32",
               "default": 0
+            }
+          },
+          {
+            "name": "Datum",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
             }
           },
           {
@@ -498,17 +506,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             }
           }
@@ -540,17 +548,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Camping"
+                "$ref": "#/components/schemas/CampingRequest"
               }
             }
           }
@@ -625,17 +633,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             }
           }
@@ -677,17 +685,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Faciliteit"
+                "$ref": "#/components/schemas/FaciliteitRequest"
               }
             }
           }
@@ -750,17 +758,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             }
           }
@@ -792,17 +800,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/FaciliteitBlokkade"
+                "$ref": "#/components/schemas/FaciliteitBlokkadeRequest"
               }
             }
           }
@@ -882,17 +890,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             }
           }
@@ -924,17 +932,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Feedback"
+                "$ref": "#/components/schemas/FeedbackRequest"
               }
             }
           }
@@ -1002,6 +1010,14 @@
             }
           },
           {
+            "name": "email",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "ALL"
+            }
+          },
+          {
             "name": "BoekingID",
             "in": "query",
             "schema": {
@@ -1035,17 +1051,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             }
           }
@@ -1077,17 +1093,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Gebruiker"
+                "$ref": "#/components/schemas/GebruikerRequest"
               }
             }
           }
@@ -1219,6 +1235,11 @@
             "type": "integer",
             "format": "int32"
           },
+          "prijs": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
           "camping": {
             "$ref": "#/components/schemas/Camping"
           },
@@ -1228,6 +1249,20 @@
               "$ref": "#/components/schemas/Boeking"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccommodatieRequest": {
+        "type": "object",
+        "properties": {
+          "campingID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "prijs": {
+            "type": "number",
+            "format": "double"
           }
         },
         "additionalProperties": false
@@ -1276,6 +1311,47 @@
           },
           "boeking": {
             "$ref": "#/components/schemas/Boeking"
+          }
+        },
+        "additionalProperties": false
+      },
+      "BetalingRequest": {
+        "type": "object",
+        "properties": {
+          "boekingID": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "bedrag": {
+            "type": "number",
+            "format": "double"
+          },
+          "methode": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          },
+          "korting": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "datumOrigine": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "datumBetaald": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1383,46 +1459,38 @@
         },
         "additionalProperties": false
       },
-      "Faciliteit": {
+      "CampingRequest": {
         "type": "object",
         "properties": {
-          "faciliteitID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "faciliteitNaam": {
+          "regels": {
             "type": "string",
             "nullable": true
           },
-          "omschrijving": {
-            "type": "string",
+          "lengte": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           },
-          "capaciteit": {
-            "type": "integer",
-            "format": "int32",
+          "breedte": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           },
-          "openingstijd": {
-            "type": "string",
-            "format": "date-time",
+          "stroom": {
+            "type": "number",
+            "format": "double",
             "nullable": true
           },
-          "sluitingstijd": {
-            "type": "string",
-            "format": "date-time",
+          "huisdieren": {
+            "type": "boolean",
             "nullable": true
           }
         },
         "additionalProperties": false
       },
-      "FaciliteitBlokkade": {
+      "FaciliteitBlokkadeRequest": {
         "type": "object",
         "properties": {
-          "blokkadeID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "faciliteitID": {
             "type": "integer",
             "format": "int32"
@@ -1450,13 +1518,38 @@
         },
         "additionalProperties": false
       },
-      "Feedback": {
+      "FaciliteitRequest": {
         "type": "object",
         "properties": {
-          "feedbackID": {
-            "type": "integer",
-            "format": "int32"
+          "faciliteitNaam": {
+            "type": "string",
+            "nullable": true
           },
+          "omschrijving": {
+            "type": "string",
+            "nullable": true
+          },
+          "capaciteit": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "openingstijd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          },
+          "sluitingstijd": {
+            "type": "string",
+            "format": "date-time",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "FeedbackRequest": {
+        "type": "object",
+        "properties": {
           "gebruikerID": {
             "type": "integer",
             "format": "int32"
@@ -1476,12 +1569,6 @@
           "feedbackDatum": {
             "type": "string",
             "format": "date-time"
-          },
-          "gebruiker": {
-            "$ref": "#/components/schemas/Gebruiker"
-          },
-          "boeking": {
-            "$ref": "#/components/schemas/Boeking"
           }
         },
         "additionalProperties": false
@@ -1526,6 +1613,40 @@
             "items": {
               "$ref": "#/components/schemas/Boeking"
             },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GebruikerRequest": {
+        "type": "object",
+        "properties": {
+          "naam": {
+            "type": "string",
+            "nullable": true
+          },
+          "emailadres": {
+            "type": "string",
+            "nullable": true
+          },
+          "hashedWachtwoord": {
+            "type": "string",
+            "nullable": true
+          },
+          "salt": {
+            "type": "string",
+            "nullable": true
+          },
+          "telefoon": {
+            "type": "string",
+            "nullable": true
+          },
+          "autokenteken": {
+            "type": "string",
+            "nullable": true
+          },
+          "taal": {
+            "type": "string",
             "nullable": true
           }
         },

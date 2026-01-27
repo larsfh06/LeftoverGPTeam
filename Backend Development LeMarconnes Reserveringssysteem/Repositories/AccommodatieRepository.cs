@@ -43,7 +43,8 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     accommodatie = new Accommodatie
                     {
                         AccommodatieID = accommodatieId,
-                        CampingID = (int)reader["CampingID"]
+                        CampingID = (int)reader["CampingID"],
+                        Prijs = reader["Prijs"] as decimal?
                     };
 
                     if (IncludeCamping && reader["CampingID"] != DBNull.Value)
@@ -93,12 +94,13 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             conn.Open();
 
             string sql = @"
-                INSERT INTO Accommodatie (CampingID)
-                VALUES (@CampingID)";
+                INSERT INTO Accommodatie (CampingID, Prijs)
+                VALUES (@CampingID, @Prijs)";
 
             using var cmd = new SqlCommand(sql, conn);
 
-            cmd.Parameters.AddWithValue("@CampingID", accommodatie.CampingID);;
+            cmd.Parameters.AddWithValue("@CampingID", accommodatie.CampingID);
+            cmd.Parameters.AddWithValue("@Prijs", accommodatie.Prijs);
 
             return cmd.ExecuteNonQuery() > 0;
         }
@@ -109,8 +111,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
             string sql = @"
                 UPDATE Accommodatie
-                SET 
-                    CampingID = @CampingID,
+                SET CampingID = @CampingID, Prijs = @Prijs
                 WHERE AccommodatieID = @id
                 ";
 
@@ -118,6 +119,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
             cmd.Parameters.AddWithValue("@id", accommodatie.AccommodatieID);
             cmd.Parameters.AddWithValue("@CampingID", accommodatie.CampingID);
+            cmd.Parameters.AddWithValue("@Prijs", accommodatie.Prijs);
 
             return cmd.ExecuteNonQuery() > 0;
         }
