@@ -47,7 +47,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     {
                         AccommodatieID = (int)reader["AccommodatieID"],
                         CampingID = (int)reader["CampingID"],
-                        Prijs = reader["Prijs"] as decimal?
+                        Prijs = (decimal)reader["Prijs"]
                     };
                 }
                 result.Add(camping);

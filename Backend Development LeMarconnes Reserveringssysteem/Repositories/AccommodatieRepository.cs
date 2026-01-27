@@ -44,7 +44,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     {
                         AccommodatieID = accommodatieId,
                         CampingID = (int)reader["CampingID"],
-                        Prijs = reader["Prijs"] as decimal?
+                        Prijs = (decimal)reader["Prijs"]
                     };
 
                     if (IncludeCamping && reader["CampingID"] != DBNull.Value)
