@@ -16,7 +16,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             var result = new List<Faciliteit>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
-                "SELECT * FROM Faciliteiten WHERE @id = '0' OR FaciliteitID = @id", connection);
+                "SELECT * FROM Faciliteit WHERE @id = '0' OR FaciliteitID = @id", connection);
             command.Parameters.AddWithValue("@id", id);
             connection.Open();
 
@@ -43,7 +43,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             conn.Open();
 
             string sql = @"
-                INSERT INTO Faciliteit (FaciliteitNaam, Omschrijving, Capaciteit, Openingstijd, Sluitingstijd)
+                INSERT INTO Faciliteit (Faciliteit, Omschrijving, Capaciteit, Openingstijd, Sluitingstijd)
                 VALUES (@FaciliteitNaam, @Omschrijving, @Capaciteit, @Openingstijd, @Sluitingstijd)";
 
             using var cmd = new SqlCommand(sql, conn);
@@ -52,7 +52,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Omschrijving", faciliteit.Omschrijving);
             cmd.Parameters.AddWithValue("@Capaciteit", faciliteit.Capaciteit);
             cmd.Parameters.AddWithValue("@Openingstijd", faciliteit.Openingstijd);
-            cmd.Parameters.AddWithValue("@Sluitingsstijd", faciliteit.Sluitingstijd);
+            cmd.Parameters.AddWithValue("@Sluitingstijd", faciliteit.Sluitingstijd);
 
             return cmd.ExecuteNonQuery() > 0;
         }
@@ -68,7 +68,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
                     Omschrijving = @Omschrijving,
                     Capaciteit = @Capaciteit,
                     Openingstijd = @Openingstijd,
-                    Sluitingsstijd = @Sluitingsstijd
+                    Sluitingstijd = @Sluitingstijd
                 WHERE FaciliteitID = @id
                 ";
 
@@ -79,7 +79,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@Omschrijving", faciliteit.Omschrijving);
             cmd.Parameters.AddWithValue("@Capaciteit", faciliteit.Capaciteit);
             cmd.Parameters.AddWithValue("@Openingstijd", faciliteit.Openingstijd);
-            cmd.Parameters.AddWithValue("@Sluitingsstijd", faciliteit.Sluitingstijd);
+            cmd.Parameters.AddWithValue("@Sluitingstijd", faciliteit.Sluitingstijd);
 
             return cmd.ExecuteNonQuery() > 0;
         }

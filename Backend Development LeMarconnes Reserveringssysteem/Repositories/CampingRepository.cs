@@ -11,21 +11,19 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             _connectionString = connectionString;
         }
         // ------------------ Read ------------------
-        public List<Camping> GetCampings(int id, decimal stroom, bool huisdieren, int AccommodatieID, bool IncludeAccommodatie)
+        public List<Camping> GetCampings(int id, decimal stroom, bool huisdieren, bool IncludeAccommodatie)
         {
             var result = new List<Camping>();
             using var connection = new SqlConnection(_connectionString);
             using var command = new SqlCommand(
                 "SELECT * FROM Camping c " + 
-                "JOIN Accommodatie a ON c.CampingID = a.CampingID " + 
+                "LEFT JOIN Accommodatie a ON c.CampingID = a.CampingID " + 
                 "WHERE c.CampingID = @id " +
                 "OR (@id = 0 AND Stroom >= @stroom " +
-                "AND (@huisdieren = 'false' OR Huisdieren = @huisdieren) " +
-                "AND (@accommodatieID = 0 OR a.AccommodatieID = @accommodatieID))", connection);
+                "AND (@huisdieren = 'false' OR Huisdieren = @huisdieren))", connection);
             command.Parameters.AddWithValue("@id", id);
             command.Parameters.AddWithValue("@stroom", stroom);
             command.Parameters.AddWithValue("@huisdieren", huisdieren);
-            command.Parameters.AddWithValue("@accommodatieID", AccommodatieID);
             connection.Open();
 
             using var reader = command.ExecuteReader();

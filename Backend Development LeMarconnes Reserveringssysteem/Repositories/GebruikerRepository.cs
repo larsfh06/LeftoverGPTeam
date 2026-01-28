@@ -87,7 +87,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
             cmd.Parameters.AddWithValue("@HashedWachtwoord", gebruiker.HashedWachtwoord);
             cmd.Parameters.AddWithValue("@Salt", gebruiker.Salt);
             cmd.Parameters.AddWithValue("@Telefoon", gebruiker.Telefoon);
-            cmd.Parameters.AddWithValue("@Kenteken", gebruiker.Autokenteken);
+            cmd.Parameters.AddWithValue("@Autokenteken", gebruiker.Autokenteken);
             cmd.Parameters.AddWithValue("@Taal", gebruiker.Taal);
 
             return cmd.ExecuteNonQuery() > 0;

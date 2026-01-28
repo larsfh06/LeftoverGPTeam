@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Backend Development LeMarconnes Reserveringssysteem")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0b560feef4862dd20d96486e72184e788308945")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8a8283922cad47b6f53d74fdda1651fa04356837")]
 [assembly: System.Reflection.AssemblyProductAttribute("Backend Development LeMarconnes Reserveringssysteem")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Backend Development LeMarconnes Reserveringssysteem")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

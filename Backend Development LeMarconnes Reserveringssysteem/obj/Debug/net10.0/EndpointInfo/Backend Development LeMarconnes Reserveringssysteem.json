@@ -373,17 +373,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             }
           }
@@ -415,17 +415,17 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             },
             "text/json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             },
             "application/*+json": {
               "schema": {
-                "$ref": "#/components/schemas/Boeking"
+                "$ref": "#/components/schemas/BoekingRequest"
               }
             }
           }
@@ -470,15 +470,6 @@
             "schema": {
               "type": "boolean",
               "default": false
-            }
-          },
-          {
-            "name": "AccommodatieID",
-            "in": "query",
-            "schema": {
-              "type": "integer",
-              "format": "int32",
-              "default": 0
             }
           },
           {
@@ -1224,35 +1215,6 @@
   },
   "components": {
     "schemas": {
-      "Accommodatie": {
-        "type": "object",
-        "properties": {
-          "accommodatieID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "campingID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "prijs": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "camping": {
-            "$ref": "#/components/schemas/Camping"
-          },
-          "boekingen": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Boeking"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "AccommodatieRequest": {
         "type": "object",
         "properties": {
@@ -1263,54 +1225,6 @@
           "prijs": {
             "type": "number",
             "format": "double"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Betaling": {
-        "type": "object",
-        "properties": {
-          "betalingID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "boekingID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "type": {
-            "type": "string",
-            "nullable": true
-          },
-          "bedrag": {
-            "type": "number",
-            "format": "double"
-          },
-          "methode": {
-            "type": "string",
-            "nullable": true
-          },
-          "status": {
-            "type": "string",
-            "nullable": true
-          },
-          "korting": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "datumOrigine": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "datumBetaald": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "boeking": {
-            "$ref": "#/components/schemas/Boeking"
           }
         },
         "additionalProperties": false
@@ -1356,13 +1270,9 @@
         },
         "additionalProperties": false
       },
-      "Boeking": {
+      "BoekingRequest": {
         "type": "object",
         "properties": {
-          "boekingID": {
-            "type": "integer",
-            "format": "int32"
-          },
           "gebruikerID": {
             "type": "integer",
             "format": "int32"
@@ -1406,55 +1316,6 @@
           "cancelled": {
             "type": "boolean",
             "nullable": true
-          },
-          "gebruiker": {
-            "$ref": "#/components/schemas/Gebruiker"
-          },
-          "accommodatie": {
-            "$ref": "#/components/schemas/Accommodatie"
-          },
-          "betalingen": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Betaling"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "Camping": {
-        "type": "object",
-        "properties": {
-          "campingID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "regels": {
-            "type": "string",
-            "nullable": true
-          },
-          "lengte": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "breedte": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "stroom": {
-            "type": "number",
-            "format": "double",
-            "nullable": true
-          },
-          "huisdieren": {
-            "type": "boolean",
-            "nullable": true
-          },
-          "accommodatie": {
-            "$ref": "#/components/schemas/Accommodatie"
           }
         },
         "additionalProperties": false
@@ -1569,51 +1430,6 @@
           "feedbackDatum": {
             "type": "string",
             "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
-      "Gebruiker": {
-        "type": "object",
-        "properties": {
-          "gebruikerID": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "naam": {
-            "type": "string",
-            "nullable": true
-          },
-          "emailadres": {
-            "type": "string",
-            "nullable": true
-          },
-          "hashedWachtwoord": {
-            "type": "string",
-            "nullable": true
-          },
-          "salt": {
-            "type": "string",
-            "nullable": true
-          },
-          "telefoon": {
-            "type": "string",
-            "nullable": true
-          },
-          "autokenteken": {
-            "type": "string",
-            "nullable": true
-          },
-          "taal": {
-            "type": "string",
-            "nullable": true
-          },
-          "boekingen": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Boeking"
-            },
-            "nullable": true
           }
         },
         "additionalProperties": false

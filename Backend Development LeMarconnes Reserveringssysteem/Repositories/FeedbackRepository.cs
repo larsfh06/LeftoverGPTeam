@@ -87,7 +87,7 @@ namespace Backend_Development_LeMarconnes_Reserveringssysteem.Repositories
 
             string sql = @"
                 INSERT INTO Feedback (GebruikerID, BoekingID, FeedbackScore, FeedbackTekst, FeedbackDatum)
-                VALUES (@GebruikerID, @BoekingID, @FeedbackScore, @stroom, @FeedbackDatum)";
+                VALUES (@GebruikerID, @BoekingID, @FeedbackScore, @FeedbackTekst, @FeedbackDatum)";
 
             using var cmd = new SqlCommand(sql, conn);
 

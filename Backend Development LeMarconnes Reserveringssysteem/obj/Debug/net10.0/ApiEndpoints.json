@@ -165,8 +165,8 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "boeking",
-        "Type": "Boeking",
+        "Name": "request",
+        "Type": "BoekingController\u002BBoekingRequest",
         "IsRequired": true
       }
     ],
@@ -186,8 +186,8 @@
         "IsRequired": true
       },
       {
-        "Name": "boeking",
-        "Type": "Boeking",
+        "Name": "request",
+        "Type": "BoekingController\u002BBoekingRequest",
         "IsRequired": true
       }
     ],
@@ -319,11 +319,6 @@
         "Name": "huisdieren",
         "Type": "System.Boolean",
         "IsRequired": true
-      },
-      {
-        "Name": "AccommodatieID",
-        "Type": "System.Int32",
-        "IsRequired": false
       },
       {
         "Name": "IncludeAccommodatie",
